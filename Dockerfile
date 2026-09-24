@@ -1,19 +1,22 @@
-﻿# =====================================================
-# RESHT GOURMET — Dockerfile
-# Servidor Nginx Alpine ultra-leve para site estático
+# =====================================================
+# RESHT GOURMET - Dockerfile
+# Servidor Nginx Alpine ultra-leve para site estatico
 # =====================================================
 
 FROM nginx:1.27-alpine
 
 # Metadados da imagem
 LABEL maintainer="RESHT Gourmet"
-LABEL description="Site gastronômico RESHT — servido via Nginx Alpine"
-LABEL version="1.0.0"
+LABEL description="Site gastronomico RESHT - servido via Nginx Alpine"
+LABEL version="1.1.0"
 
-# Remove a config default do Nginx e substitui pela customizada
+# Instala curl (necessario para o healthcheck - wget nao esta disponivel no Alpine por padrao)
+RUN apk add --no-cache curl
+
+# Remove a configuracao default do Nginx e substitui pela customizada
 RUN rm /etc/nginx/conf.d/default.conf
 
-# Copia a configuração customizada do Nginx
+# Copia a configuracao customizada do Nginx
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copia todos os arquivos do site para dentro do container
@@ -26,15 +29,15 @@ COPY admin.js /usr/share/nginx/html/
 COPY assets/ /usr/share/nginx/html/assets/
 COPY Floating_food_animation_composition_1080p_20260924152541_000/ /usr/share/nginx/html/Floating_food_animation_composition_1080p_20260924152541_000/
 
-# Garante permissões corretas
+# Garante permissoes corretas nos arquivos estaticos
 RUN chmod -R 755 /usr/share/nginx/html
 
-# Expõe a porta 80
+# Expoe a porta 80 (HTTP)
 EXPOSE 80
 
-# Health check para verificar se o servidor está respondendo
-HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
-  CMD wget --quiet --tries=1 --spider http://localhost/ || exit 1
+# Health check via curl - verifica se o Nginx esta respondendo HTTP 200
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD curl -fs http://localhost/ > /dev/null || exit 1
 
-# Nginx em foreground (obrigatório para Docker)
+# Nginx em foreground (obrigatorio para Docker - nao usar daemon)
 CMD ["nginx", "-g", "daemon off;"]
