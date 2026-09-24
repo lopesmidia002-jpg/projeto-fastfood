@@ -10,7 +10,11 @@
 [![Nginx](https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white)](https://nginx.org/)
 [![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
 
-[🌐 Demo ao Vivo](#) · [📖 Documentação](DOCUMENTACAO.md) · [🗺️ Roadmap](PASSOS.md) · [🏗️ Schema](SCHEMA.md)
+[![GitHub](https://img.shields.io/badge/GitHub-lopesmidia002--jpg-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/lopesmidia002-jpg/projeto-fastfood)
+[![Repo Size](https://img.shields.io/github/repo-size/lopesmidia002-jpg/projeto-fastfood?style=for-the-badge&color=orange)](https://github.com/lopesmidia002-jpg/projeto-fastfood)
+[![Last Commit](https://img.shields.io/github/last-commit/lopesmidia002-jpg/projeto-fastfood?style=for-the-badge&color=brightgreen)](https://github.com/lopesmidia002-jpg/projeto-fastfood/commits/main)
+
+[📖 Documentação](DOCUMENTACAO.md) · [🗺️ Roadmap](PASSOS.md) · [🏗️ Schema](SCHEMA.md) · [🌍 GitHub](https://github.com/lopesmidia002-jpg/projeto-fastfood)
 
 </div>
 
@@ -46,7 +50,7 @@
 - **Carrinho lateral (drawer)** com barra de progresso para Frete Grátis acima de R$ 80,00
 - **Checkout via WhatsApp** com suporte a Pix, Cartão e Dinheiro com troco
 - **Reserva de Mesa VIP** com seleção de ambiente, data e horário direto via WhatsApp
-- **Endereço vinculado ao Google Maps e Waze** para navegação direta
+- **Endereço vinculado ao Google Maps e Waze** para navegação direta com 1 clique
 
 ### 🏢 Backoffice & Operação (`admin.html`)
 - **KDS em tempo real** com áudio nativo para novos pedidos
@@ -71,7 +75,7 @@
 
 ```bash
 # Clonar o repositório
-git clone https://github.com/seu-usuario/projeto-fastfood.git
+git clone https://github.com/lopesmidia002-jpg/projeto-fastfood.git
 cd projeto-fastfood
 
 # Build e iniciar o container
@@ -92,13 +96,20 @@ docker compose down
 docker compose logs -f
 ```
 
+**Rebuild após editar arquivos:**
+```bash
+docker compose up -d --build
+```
+
+> ✅ O container inclui healthcheck automático via `curl` a cada 30s e reinicio automático (`restart: unless-stopped`).
+
 ---
 
 ## 💻 Rodando Localmente (sem Docker)
 
 ```bash
 # Clonar o repositório
-git clone https://github.com/seu-usuario/projeto-fastfood.git
+git clone https://github.com/lopesmidia002-jpg/projeto-fastfood.git
 cd projeto-fastfood
 
 # Iniciar servidor Python (ou qualquer servidor HTTP estático)
@@ -130,12 +141,14 @@ projeto-fastfood/
 │   ├── chef.jpg
 │   └── restaurant.jpg
 ├── 📁 Floating_food_animation_.../        # 100 frames JPG da animação 3D
-├── 🐳 Dockerfile                          # Imagem Nginx Alpine
-├── 🐳 docker-compose.yml                  # Orquestração do container
-├── ⚙️ nginx.conf                          # Configuração do servidor Nginx
+├── 🐳 Dockerfile                          # Imagem Nginx 1.27 Alpine + curl
+├── 🐳 docker-compose.yml                  # Orquestração: portas, healthcheck, restart
+├── ⚙️  nginx.conf                          # Gzip, cache de assets, headers de segurança
+├── 🔒 .gitignore                          # Arquivos ignorados pelo Git
+├── 🔒 .dockerignore                       # Arquivos ignorados pelo Docker
 ├── 📖 DOCUMENTACAO.md                     # Especificação técnica completa
-├── 🗺️ PASSOS.md                           # Roadmap e progresso do projeto
-├── 🏗️ SCHEMA.md                           # Modelagem relacional com Prisma ORM
+├── 🗺️  PASSOS.md                           # Roadmap e progresso do projeto
+├── 🏗️  SCHEMA.md                           # Modelagem relacional com Prisma ORM
 └── 📝 CONTEXTO.md                         # Contexto arquitetural do projeto
 ```
 
@@ -148,7 +161,8 @@ projeto-fastfood/
 | **Frontend** | HTML5 Semântico, CSS3 (Grid, Flexbox, Custom Properties), Vanilla JS (ES6+) |
 | **Animação 3D** | HTML5 Canvas — 100 frames JPG Full HD a 30–60 FPS com pré-carregamento assíncrono |
 | **Servidor** | Nginx 1.27 Alpine (via Docker) |
-| **Containerização** | Docker + Docker Compose |
+| **Containerização** | Docker + Docker Compose v2 |
+| **Healthcheck** | `curl -fs http://localhost/` — a cada 30s com restart automático |
 | **Persistência** | localStorage (dados de usuários, sessão e carrinho) |
 | **SEO** | Schema.org JSON-LD + Open Graph metatags |
 | **Ícones** | Font Awesome 6.5.1 |
@@ -165,6 +179,7 @@ O projeto foi otimizado com **Mobile First** em todos os módulos:
 - ✅ Modais e drawers com contenção total no viewport
 - ✅ KDS e tabelas do backoffice com cards mobile dedicados
 - ✅ Tipografia fluida com `clamp()` em todos os textos
+- ✅ Painel administrativo com scroll adaptativo e ícones responsivos
 
 ---
 
@@ -180,6 +195,8 @@ O projeto foi otimizado com **Mobile First** em todos os módulos:
 ## 👨‍💻 Autor
 
 **Nilton Lopes** — [@lopes.midia002](mailto:lopes.midia002@gmail.com)
+
+[![GitHub](https://img.shields.io/badge/GitHub-lopesmidia002--jpg-181717?style=flat-square&logo=github)](https://github.com/lopesmidia002-jpg)
 
 ---
 
