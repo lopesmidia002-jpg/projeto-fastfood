@@ -15,12 +15,10 @@ services:
       - "8080:80"     # Porta alternativa: http://localhost:8080
     restart: unless-stopped
     volumes:
-      # Volume para persistir logs do Nginx
       - nginx-logs:/var/log/nginx
     environment:
       - TZ=America/Sao_Paulo
     healthcheck:
-      # Usa curl (instalado via apk no Dockerfile) para verificar HTTP 200
       test: ["CMD-SHELL", "curl -fs http://localhost/ > /dev/null || exit 1"]
       interval: 30s
       timeout: 5s
