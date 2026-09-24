@@ -1,0 +1,41 @@
+# Documentação e metadados do projeto (não precisam ir para o container)
+*.md
+AGENTS.md
+CONTEXTO.md
+DOCUMENTACAO.md
+PASSOS.md
+SCHEMA.md
+
+# Git
+.git/
+.gitignore
+
+# Docker files (evitar recursão) — nginx.conf é necessário no build!
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Editores & IDEs
+.vscode/
+.idea/
+*.code-workspace
+
+# Temporários e logs
+*.log
+*.tmp
+*.bak
+tmp/
+temp/
+
+# Node (se houver futuramente)
+node_modules/
+npm-debug.log*
+
+# Agentes de IA
+.agents/
+.gemini/
+
+# Sistema operacional
+Thumbs.db
+.DS_Store
+Desktop.ini

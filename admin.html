@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RESHT — Backoffice & KDS Central Fast-Food</title>
+  <meta name="description" content="Painel de controle central de alta performance para operação de restaurantes, KDS em tempo real, estoque, entregas e financeiro.">
+  <meta name="theme-color" content="#09090b">
+
+  <!-- Google Fonts: Outfit & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin-body">
+  <!-- Ambient Floating Dust Particles / Bokeh Lights Canvas -->
+  <canvas id="ambientParticlesCanvas" class="ambient-particles-canvas" aria-hidden="true"></canvas>
+
+  <!-- Audio Alert Synthesizer Triggered via Web Audio API -->
+
+  <div class="admin-layout">
+    
+    <!-- ==========================================================================
+         SIDEBAR DE NAVEGAÇÃO OPERACIONAL
+         ========================================================================== -->
+    <aside class="admin-nav-sidebar" id="adminSidebar">
+      
+      <!-- Brand Logo -->
+      <div class="sidebar-brand">
+        <a href="index.html" class="brand-link" title="Voltar para a Landing Page">
+          <div class="brand-icon-box">
+            <i class="fa-solid fa-fire-flame-curved"></i>
+          </div>
+          <div class="brand-info">
+            <span class="brand-title">RESHT<span class="text-primary">.</span>OS</span>
+            <span class="brand-tag">Food Service Suite</span>
+          </div>
+        </a>
+        <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Fechar Menu">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Quick Store Status Pill -->
+      <div class="store-status-pill-box">
+        <div class="store-status-indicator online" id="storeStatusIndicator">
+          <span class="status-ping"></span>
+          <span class="status-text-live" id="storeStatusLabel">Loja Aberta para Pedidos</span>
+        </div>
+        <button class="btn-store-toggle" id="storeMasterToggle" title="Abrir/Fechar Loja">
+          <i class="fa-solid fa-power-off"></i>
+        </button>
+      </div>
+
+      <!-- Navigation Menu -->
+      <nav class="sidebar-menu" aria-label="Menu do Backoffice">
+        <div class="menu-group-label">OPERAÇÃO EM TEMPO REAL</div>
+        
+        <button class="nav-item-btn active" data-view="kdsView" id="navKds">
+          <div class="nav-btn-icon"><i class="fa-solid fa-kitchen-set"></i></div>
+          <span class="nav-btn-text">KDS & Pedidos Live</span>
+          <span class="nav-live-badge pulse" id="kdsBadgeCount">4</span>
+        </button>
+
+        <button class="nav-item-btn" data-view="menuView" id="navMenu">
+          <div class="nav-btn-icon"><i class="fa-solid fa-burger"></i></div>
+          <span class="nav-btn-text">Cardápio & Modificadores</span>
+        </button>
+
+        <button class="nav-item-btn" data-view="logisticsView" id="navLogistics">
+          <div class="nav-btn-icon"><i class="fa-solid fa-motorcycle"></i></div>
+          <span class="nav-btn-text">Entregadores & Zonas</span>
+          <span class="nav-badge muted" id="driversActiveCount">3 Online</span>
+        </button>
+
+        <div class="menu-group-label">GESTÃO & CONTROLE</div>
+
+        <button class="nav-item-btn" data-view="inventoryView" id="navInventory">
+          <div class="nav-btn-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
+          <span class="nav-btn-text">Estoque & Insumos</span>
+          <span class="nav-badge warning" id="stockAlertCount">2 Baixo</span>
+        </button>
+
+        <button class="nav-item-btn" data-view="financialView" id="navFinancial">
+          <div class="nav-btn-icon"><i class="fa-solid fa-cash-register"></i></div>
+          <span class="nav-btn-text">Caixa & Pagamentos</span>
+          <span class="nav-badge warning" id="financialPendingBadge">2 A Cobrar</span>
+        </button>
+
+        <button class="nav-item-btn" data-view="analyticsView" id="navAnalytics">
+          <div class="nav-btn-icon"><i class="fa-solid fa-chart-line"></i></div>
+          <span class="nav-btn-text">Relatórios & Métricas</span>
+        </button>
+
+        <button class="nav-item-btn" data-view="settingsView" id="navSettings">
+          <div class="nav-btn-icon"><i class="fa-solid fa-sliders"></i></div>
+          <span class="nav-btn-text">Configurações & Equipe</span>
+        </button>
+      </nav>
+
+      <!-- User Role Switcher & Profile Footer -->
+      <div class="sidebar-user-footer">
+        <div class="role-selector-wrap">
+          <label for="currentRoleSelect"><i class="fa-solid fa-user-shield"></i> Visão de Acesso:</label>
+          <select id="currentRoleSelect" class="role-select">
+            <option value="superadmin">👑 Super Admin (Geral)</option>
+            <option value="manager">💼 Gerente de Turno</option>
+            <option value="cashier">💵 Atendente / Caixa</option>
+            <option value="kitchen">👨‍🍳 Cozinha (Somente KDS)</option>
+          </select>
+        </div>
+        <div class="sidebar-user-card">
+          <div class="user-avatar-circle" id="currentUserAvatar">NA</div>
+          <div class="user-details">
+            <span class="user-display-name" id="currentUserName">Nilton Admin</span>
+            <span class="user-display-role" id="currentUserRoleBadge">Super Administrador</span>
+          </div>
+          <a href="index.html" class="btn-logout" title="Sair para o Site"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- Mobile Backdrop with Deep Blur -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
+
+    <!-- ==========================================================================
+         MAIN CONTENT AREA
+         ========================================================================== -->
+    <div class="admin-main-wrapper">
+      
+      <!-- Top Operational Header Bar -->
+      <header class="admin-topbar">
+        <div class="topbar-left">
+          <button class="sidebar-toggle-btn" id="mobileSidebarToggle" aria-label="Menu Lateral">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div class="topbar-title-box">
+            <h1 class="topbar-view-title" id="currentViewTitle">KDS & Gestão de Pedidos em Tempo Real</h1>
+            <p class="topbar-view-sub" id="currentViewSub">Painel de controle visual e operacional da cozinha</p>
+          </div>
+        </div>
+
+        <div class="topbar-actions">
+          
+          <!-- WebSocket Status Pill -->
+          <div class="ws-status-indicator" title="Conexão com WebSocket de pedidos">
+            <span class="ws-dot online"></span>
+            <span class="action-text-full">WebSocket Live</span>
+            <span class="action-text-mobile">Live</span>
+          </div>
+
+          <!-- Sound Alarm Toggle -->
+          <button class="action-btn-pill" id="toggleSoundBtn" title="Ativar/Desativar som de novos pedidos">
+            <i class="fa-solid fa-volume-high" id="soundIcon"></i>
+            <span class="action-text-full">Alerta Sonoro</span>
+            <span class="action-text-mobile">Som</span>
+          </button>
+
+          <!-- Simulate Live Order Button (Demo Power Tool) -->
+          <button class="btn btn-simulate-order" id="simulateNewOrderBtn" title="Simular Pedido em Tempo Real">
+            <i class="fa-solid fa-bolt-lightning"></i>
+            <span class="action-text-full">Simular Pedido Live</span>
+            <span class="action-text-mobile">Simular</span>
+          </button>
+
+          <!-- Quick Return to Storefront -->
+          <a href="index.html" target="_blank" class="action-btn-pill store-link-btn" title="Abrir Cardápio do Cliente">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            <span class="action-text-full">Ver Cardápio Web</span>
+            <span class="action-text-mobile">Cardápio</span>
+          </a>
+
+        </div>
+      </header>
+
+      <!-- Dynamic Views Container -->
+      <main class="admin-content-viewport" id="adminViewport">
+
+        <!-- ====================================================================
+             VIEW 1: LIVE KDS & KANBAN TRACKER (COZINHA & EXPEDIÇÃO)
+             ==================================================================== -->
+        <section class="admin-view active" id="kdsView">
+          
+          <!-- KDS Metrics Banner -->
+          <div class="kds-metrics-bar">
+            <div class="kds-metric-card glass-panel">
+              <div class="metric-icon-ring emerald"><i class="fa-solid fa-bell-concierge"></i></div>
+              <div>
+                <span class="kds-metric-val" id="metricTotalActive">4</span>
+                <span class="kds-metric-label">Pedidos Ativos</span>
+              </div>
+            </div>
+            <div class="kds-metric-card glass-panel">
+              <div class="metric-icon-ring amber"><i class="fa-solid fa-stopwatch"></i></div>
+              <div>
+                <span class="kds-metric-val" id="metricAvgTime">18 min</span>
+                <span class="kds-metric-label">Tempo Médio de Preparo</span>
+              </div>
+            </div>
+            <div class="kds-metric-card glass-panel">
+              <div class="metric-icon-ring ruby"><i class="fa-solid fa-motorcycle"></i></div>
+              <div>
+                <span class="kds-metric-val" id="metricInDelivery">1</span>
+                <span class="kds-metric-label">Em Rota de Entrega</span>
+              </div>
+            </div>
+            <div class="kds-metric-card glass-panel">
+              <div class="metric-icon-ring gold"><i class="fa-solid fa-sack-dollar"></i></div>
+              <div>
+                <span class="kds-metric-val" id="metricDayTotal">R$ 1.485,30</span>
+                <span class="kds-metric-label">Faturamento do Turno</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- KDS Payment & Status Filter Bar -->
+          <div class="kds-filter-toolbar">
+            <div class="kds-filter-tabs" id="kdsFilterTabs">
+              <button class="kds-filter-btn active" data-filter="all">
+                <i class="fa-solid fa-layer-group"></i>
+                <span class="filter-label-full">Todos os Pedidos</span>
+                <span class="filter-label-mobile">Todos</span>
+                <span class="filter-count-badge" id="filterCountAll">4</span>
+              </button>
+              <button class="kds-filter-btn filter-paid" data-filter="paid">
+                <i class="fa-solid fa-circle-check text-emerald"></i>
+                <span class="filter-label-full">Pagos</span>
+                <span class="filter-label-mobile">Pagos</span>
+                <span class="filter-count-badge" id="filterCountPaid">2</span>
+              </button>
+              <button class="kds-filter-btn filter-pending" data-filter="pending">
+                <i class="fa-solid fa-hourglass-half text-amber"></i>
+                <span class="filter-label-full">Aguardando Pagamento</span>
+                <span class="filter-label-mobile">Pendentes</span>
+                <span class="filter-count-badge" id="filterCountPending">2</span>
+              </button>
+            </div>
+            <div class="kds-quick-pay-stat">
+              <span class="pay-stat-pill paid"><i class="fa-solid fa-circle-check"></i> <span id="quickPaidSum">R$ 0,00</span> Pago</span>
+              <span class="pay-stat-pill pending"><i class="fa-solid fa-clock"></i> <span id="quickPendingSum">R$ 0,00</span> A Receber</span>
+            </div>
+          </div>
+
+          <!-- KDS Kanban Board (Colunas de Status) -->
+          <div class="kds-kanban-board" id="kdsBoard">
+            
+            <!-- Coluna 1: Recebido -->
+            <div class="kanban-col status-received" data-status="received">
+              <div class="kanban-col-header">
+                <div class="col-title-flex">
+                  <span class="status-indicator-dot received"></span>
+                  <h3 class="col-title">Recebidos</h3>
+                </div>
+                <span class="col-counter-badge" id="count-received">1</span>
+              </div>
+              <div class="kanban-cards-container" id="cards-received">
+                <!-- Injetado dinamicamente -->
+              </div>
+            </div>
+
+            <!-- Coluna 2: Em Preparo -->
+            <div class="kanban-col status-preparing" data-status="preparing">
+              <div class="kanban-col-header">
+                <div class="col-title-flex">
+                  <span class="status-indicator-dot preparing"></span>
+                  <h3 class="col-title">Na Cozinha / Grelha</h3>
+                </div>
+                <span class="col-counter-badge" id="count-preparing">1</span>
+              </div>
+              <div class="kanban-cards-container" id="cards-preparing">
+                <!-- Injetado dinamicamente -->
+              </div>
+            </div>
+
+            <!-- Coluna 3: Pronto / Aguardando -->
+            <div class="kanban-col status-ready" data-status="ready">
+              <div class="kanban-col-header">
+                <div class="col-title-flex">
+                  <span class="status-indicator-dot ready"></span>
+                  <h3 class="col-title">Pronto / Expedição</h3>
+                </div>
+                <span class="col-counter-badge" id="count-ready">1</span>
+              </div>
+              <div class="kanban-cards-container" id="cards-ready">
+                <!-- Injetado dinamicamente -->
+              </div>
+            </div>
+
+            <!-- Coluna 4: Em Rota de Entrega -->
+            <div class="kanban-col status-delivering" data-status="delivering">
+              <div class="kanban-col-header">
+                <div class="col-title-flex">
+                  <span class="status-indicator-dot delivering"></span>
+                  <h3 class="col-title">Saiu p/ Entrega</h3>
+                </div>
+                <span class="col-counter-badge" id="count-delivering">1</span>
+              </div>
+              <div class="kanban-cards-container" id="cards-delivering">
+                <!-- Injetado dinamicamente -->
+              </div>
+            </div>
+
+            <!-- Coluna 5: Concluídos -->
+            <div class="kanban-col status-delivered" data-status="delivered">
+              <div class="kanban-col-header">
+                <div class="col-title-flex">
+                  <span class="status-indicator-dot delivered"></span>
+                  <h3 class="col-title">Finalizados Hoje</h3>
+                </div>
+                <span class="col-counter-badge" id="count-delivered">12</span>
+              </div>
+              <div class="kanban-cards-container" id="cards-delivered">
+                <!-- Injetado dinamicamente -->
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ====================================================================
+             VIEW 2: GESTÃO DE CARDÁPIO DIGITAL & MODIFICADORES
+             ==================================================================== -->
+        <section class="admin-view" id="menuView">
+          <div class="view-header-bar">
+            <div>
+              <h2 class="section-title">Gerenciador de Cardápio & Insumos</h2>
+              <p class="section-sub">Ative ou pause itens instantaneamente e configure grupos de adicionais obrigatórios ou extras.</p>
+            </div>
+            <div class="view-header-actions">
+              <button class="btn btn-secondary btn-sm" id="openModifierGroupModalBtn">
+                <i class="fa-solid fa-layer-group"></i> Grupos de Adicionais
+              </button>
+              <button class="btn btn-primary btn-sm" id="openNewProductModalBtn">
+                <i class="fa-solid fa-plus"></i> Novo Prato / Combo
+              </button>
+            </div>
+          </div>
+
+          <!-- Categories Quick Filter Tabs -->
+          <div class="menu-mgmt-categories" id="menuMgmtCategories">
+            <button class="mgmt-cat-btn active" data-cat="all">Todos os Itens (8)</button>
+            <button class="mgmt-cat-btn" data-cat="burgers">Burgers & Combos (4)</button>
+            <button class="mgmt-cat-btn" data-cat="pizzas">Pizzas Artesanais (2)</button>
+            <button class="mgmt-cat-btn" data-cat="drinks">Bebidas & Drinks (1)</button>
+            <button class="mgmt-cat-btn" data-cat="desserts">Sobremesas (1)</button>
+          </div>
+
+          <!-- Product Management Table / Cards Grid -->
+          <div class="product-mgmt-grid" id="productMgmtGrid">
+            <!-- Renderizado via JS -->
+          </div>
+        </section>
+
+        <!-- ====================================================================
+             VIEW 3: LOGÍSTICA & ENTREGADORES (DELIVERY TRACKER)
+             ==================================================================== -->
+        <section class="admin-view" id="logisticsView">
+          <div class="view-header-bar">
+            <div>
+              <h2 class="section-title">Logística & Gestão de Motoboys</h2>
+              <p class="section-sub">Acompanhe entregadores ativos, pedidos atribuídos e configure taxas por bairro ou raio.</p>
+            </div>
+            <button class="btn btn-primary btn-sm" id="openNewDriverModalBtn">
+              <i class="fa-solid fa-user-plus"></i> Cadastrar Entregador
+            </button>
+          </div>
+
+          <div class="logistics-dashboard-grid">
+            <!-- Coluna 1: Entregadores Ativos -->
+            <div class="logistics-drivers-box glass-panel">
+              <div class="panel-header-flex">
+                <h3 class="panel-heading"><i class="fa-solid fa-helmet-safety text-emerald"></i> Entregadores Disponíveis / Em Rota</h3>
+                <span class="panel-counter-badge" id="driversCountBadge">3 Ativos</span>
+              </div>
+              <div class="drivers-list" id="driversListContainer">
+                <!-- Renderizado via JS -->
+              </div>
+            </div>
+
+            <!-- Coluna 2: Zonas de Entrega & Taxas -->
+            <div class="logistics-zones-box glass-panel">
+              <div class="panel-header-flex">
+                <h3 class="panel-heading"><i class="fa-solid fa-map-location-dot text-ruby"></i> Zonas e Taxas de Entrega</h3>
+                <span class="panel-counter-badge" id="zonesCountBadge">4 Zonas</span>
+              </div>
+              
+              <!-- Tabela para Desktop e Telas Médias -->
+              <div class="delivery-zones-table-scroll">
+                <table class="zones-table">
+                  <thead>
+                    <tr>
+                      <th>Zona / Bairro</th>
+                      <th>Raio Máx.</th>
+                      <th>Tempo Médio</th>
+                      <th>Taxa Cobrada</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="zonesTableBody">
+                    <!-- Renderizado via JS -->
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Visualização Otimizada em Cards para Mobile -->
+              <div class="delivery-zones-mobile-cards" id="deliveryZonesMobileCards">
+                <!-- Renderizado dinamicamente via JS -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================================
+             VIEW 4: ESTOQUE & INSUMOS (MATÉRIA-PRIMA)
+             ==================================================================== -->
+        <section class="admin-view" id="inventoryView">
+          <div class="view-header-bar">
+            <div>
+              <h2 class="section-title">Controle de Insumos & Baixa Automática</h2>
+              <p class="section-sub">Acompanhe a matéria-prima utilizada nos burgers e pratos com alertas de estoque crítico.</p>
+            </div>
+            <button class="btn btn-primary btn-sm" id="openStockEntryModalBtn">
+              <i class="fa-solid fa-cart-flatbed"></i> Dar Entrada de Estoque
+            </button>
+          </div>
+
+          <div class="inventory-table-container glass-panel">
+            <!-- Tabela para Desktop e Telas Médias -->
+            <div class="inventory-table-scroll">
+              <table class="inventory-table" id="inventoryTable">
+                <thead>
+                  <tr>
+                    <th>Insumo / Matéria-Prima</th>
+                    <th>Categoria</th>
+                    <th>Quantidade Atual</th>
+                    <th>Estoque Mínimo</th>
+                    <th>Status</th>
+                    <th>Custo Unit.</th>
+                    <th class="text-right">Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="inventoryTableBody">
+                  <!-- Renderizado dinamicamente via JS -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Visualização Otimizada em Cards para Mobile -->
+            <div class="inventory-mobile-cards" id="inventoryMobileCards">
+              <!-- Renderizado dinamicamente via JS -->
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================================
+             VIEW 5: FINANCEIRO, CAIXA & CUPONS
+             ==================================================================== -->
+        <section class="admin-view" id="financialView">
+          <div class="view-header-bar">
+            <div>
+              <h2 class="section-title">Frente de Caixa & Cupons Promocionais</h2>
+              <p class="section-sub">Abertura e fechamento de turno, divisão por métodos de pagamento e marketing.</p>
+            </div>
+            <div class="view-header-actions">
+              <button class="btn btn-secondary btn-sm" id="openShiftCloseModalBtn">
+                <i class="fa-solid fa-lock"></i> Fechar Caixa do Turno
+              </button>
+              <button class="btn btn-primary btn-sm" id="openNewCouponModalBtn">
+                <i class="fa-solid fa-ticket"></i> Criar Cupom VIP
+              </button>
+            </div>
+          </div>
+
+          <!-- Nova Seção: Auditoria e Controle de Pagamentos em Tempo Real -->
+          <div class="payments-audit-section glass-panel">
+            <div class="panel-header-flex">
+              <div>
+                <h3 class="panel-heading"><i class="fa-solid fa-money-check-dollar"></i> Acompanhamento & Confirmação de Pagamentos</h3>
+                <p class="panel-sub">Audite todos os pedidos do turno, identifique pendências e confirme pagamentos com 1 clique.</p>
+              </div>
+              <div class="payments-filters-wrap">
+                <div class="search-box-sm">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                  <input type="text" id="paymentsSearchInput" placeholder="Buscar por pedido ou cliente...">
+                </div>
+                <select id="paymentsStatusFilter" class="form-select-sm">
+                  <option value="all">Todos os Status</option>
+                  <option value="PENDING">🟡 Somente Pendentes</option>
+                  <option value="PAID">🟢 Somente Pagos</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Métricas Rápidas de Pagamentos -->
+            <div class="payments-summary-cards">
+              <div class="pay-sum-card glass-panel emerald-border">
+                <span class="pay-sum-label"><i class="fa-solid fa-circle-check text-emerald"></i> Total Confirmado (Pago)</span>
+                <h3 class="pay-sum-val text-emerald" id="sumTotalPaid">R$ 0,00</h3>
+                <span class="pay-sum-sub" id="countPaidOrders">0 pedidos liquidados</span>
+              </div>
+              <div class="pay-sum-card glass-panel amber-border">
+                <span class="pay-sum-label"><i class="fa-solid fa-hourglass-half text-amber"></i> Total Pendente (A Receber)</span>
+                <h3 class="pay-sum-val text-amber" id="sumTotalPending">R$ 0,00</h3>
+                <span class="pay-sum-sub" id="countPendingOrders">0 pedidos a cobrar</span>
+              </div>
+              <div class="pay-sum-card glass-panel blue-border">
+                <span class="pay-sum-label"><i class="fa-solid fa-scale-balanced text-blue"></i> Taxa de Liquidação</span>
+                <h3 class="pay-sum-val" id="sumSettlementRate">0%</h3>
+                <span class="pay-sum-sub" id="sumTotalOrdersCount">0 pedidos no turno</span>
+              </div>
+            </div>
+
+            <!-- Tabela de Pedidos e Pagamentos -->
+            <div class="payments-table-container">
+              <table class="payments-table" id="paymentsTable">
+                <thead>
+                  <tr>
+                    <th>ID Pedido</th>
+                    <th>Data/Hora</th>
+                    <th>Cliente / Contato</th>
+                    <th>Valor Total</th>
+                    <th>Forma de Pagamento</th>
+                    <th>Status do Pagamento</th>
+                    <th>Auditoria / Operador</th>
+                    <th class="text-right">Ação do Administrador</th>
+                  </tr>
+                </thead>
+                <tbody id="paymentsTableBody">
+                  <!-- Renderizado dinamicamente via JS -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Visualização em Cards para Mobile na Auditoria de Pagamentos -->
+            <div class="payments-mobile-cards" id="paymentsMobileCards">
+              <!-- Renderizado dinamicamente via JS -->
+            </div>
+          </div>
+
+          <div class="financial-grid">
+            <!-- Painel de Métodos de Pagamento -->
+            <div class="financial-methods-card glass-panel">
+              <h3 class="panel-heading"><i class="fa-solid fa-chart-pie"></i> Vendas por Método de Pagamento (Hoje)</h3>
+              <div class="payment-stats-list">
+                <div class="pay-stat-item">
+                  <div class="pay-stat-left">
+                    <i class="fa-brands fa-pix text-emerald"></i>
+                    <span>Pix Instantâneo Online</span>
+                  </div>
+                  <strong class="pay-stat-val" id="statPixVal">R$ 0,00</strong>
+                </div>
+                <div class="pay-stat-item">
+                  <div class="pay-stat-left">
+                    <i class="fa-solid fa-credit-card text-primary"></i>
+                    <span>Cartão de Crédito / Débito na Entrega</span>
+                  </div>
+                  <strong class="pay-stat-val" id="statCardVal">R$ 0,00</strong>
+                </div>
+                <div class="pay-stat-item">
+                  <div class="pay-stat-left">
+                    <i class="fa-solid fa-money-bill-wave text-amber"></i>
+                    <span>Dinheiro em Espécie</span>
+                  </div>
+                  <strong class="pay-stat-val" id="statCashVal">R$ 0,00</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- Painel de Cupons de Desconto -->
+            <div class="coupons-panel glass-panel">
+              <h3 class="panel-heading"><i class="fa-solid fa-tags"></i> Cupons Promocionais Ativos</h3>
+              <div class="coupons-list" id="couponsListContainer">
+                <!-- Renderizado via JS -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================================
+             VIEW 6: RELATÓRIOS & ANALYTICS
+             ==================================================================== -->
+        <section class="admin-view" id="analyticsView">
+          <div class="view-header-bar">
+            <div>
+              <h2 class="section-title">Relatórios Operacionais & Desempenho</h2>
+              <p class="section-sub">Indicadores de ticket médio, pratos mais vendidos e curva de vendas por horário.</p>
+            </div>
+            <button class="btn btn-secondary btn-sm" id="exportReportBtn">
+              <i class="fa-solid fa-file-export"></i> Exportar Relatório CSV
+            </button>
+          </div>
+
+          <div class="analytics-cards-grid">
+            <div class="analytics-card glass-panel">
+              <span class="analytics-card-label">Ticket Médio por Pedido</span>
+              <h3 class="analytics-card-val">R$ 78,17</h3>
+              <span class="trend-badge positive"><i class="fa-solid fa-arrow-up"></i> +12,4% vs semana passada</span>
+            </div>
+            <div class="analytics-card glass-panel">
+              <span class="analytics-card-label">Prato Campeão de Vendas</span>
+              <h3 class="analytics-card-val">Royal Smash & Bacon</h3>
+              <span class="text-secondary text-xs">48 unidades vendidas hoje</span>
+            </div>
+            <div class="analytics-card glass-panel">
+              <span class="analytics-card-label">Tempo Médio Total (Preparo + Entrega)</span>
+              <h3 class="analytics-card-val">34 minutos</h3>
+              <span class="trend-badge positive"><i class="fa-solid fa-bolt"></i> Meta 40 min superada</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================================
+             VIEW 7: CONFIGURAÇÕES & CONTROLE DE ACESSO
+             ==================================================================== -->
+        <section class="admin-view" id="settingsView">
+          <div class="view-header-bar">
+            <div>
+              <h2 class="section-title">Configurações Operacionais da Loja</h2>
+              <p class="section-sub">Defina horários de funcionamento, tempo de preparo estimado e permissões da equipe.</p>
+            </div>
+            <button class="btn btn-primary btn-sm" id="saveStoreSettingsBtn">
+              <i class="fa-solid fa-floppy-disk"></i> Salvar Configurações
+            </button>
+          </div>
+
+          <div class="settings-form-grid">
+            <div class="settings-box glass-panel">
+              <h3 class="panel-heading"><i class="fa-solid fa-store"></i> Informações do Restaurante</h3>
+              <div class="form-group">
+                <label for="setStoreName">Nome Fantasia:</label>
+                <input type="text" id="setStoreName" class="form-input" value="RESHT Gourmet & Fast-Food">
+              </div>
+              <div class="form-group">
+                <label for="setAvgPrepTime">Tempo Estimado de Preparo Padrão:</label>
+                <input type="text" id="setAvgPrepTime" class="form-input" value="25 - 35 minutos">
+              </div>
+              <div class="form-group">
+                <label for="setWhatsappPhone">WhatsApp de Atendimento da Loja:</label>
+                <input type="text" id="setWhatsappPhone" class="form-input" value="(11) 98765-4321">
+              </div>
+            </div>
+
+            <div class="settings-box glass-panel">
+              <h3 class="panel-heading"><i class="fa-solid fa-print"></i> Impressão Térmica de Comandas</h3>
+              <div class="form-group">
+                <label for="setPrinterWidth">Largura da Bobina Térmica:</label>
+                <select id="setPrinterWidth" class="form-select">
+                  <option value="80mm" selected>Bobina 80mm Padrão Cozinha</option>
+                  <option value="58mm">Bobina 58mm Portátil / Balcão</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="setAutoPrintCheck" checked>
+                  <span class="custom-box"></span>
+                  <span>Abrir visualização de impressão ao receber novo pedido</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL DE CADASTRO DE ENTREGADOR
+       ========================================================================== -->
+  <div class="admin-modal-backdrop" id="driverModalBackdrop"></div>
+  <div class="admin-form-modal" id="newDriverModal" role="dialog" aria-modal="true">
+    <div class="admin-form-modal-header">
+      <h3 class="admin-form-modal-title"><i class="fa-solid fa-motorcycle text-emerald"></i> Cadastrar Novo Entregador</h3>
+      <button class="btn-icon-subtle" id="closeDriverModalBtn"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <form id="newDriverForm" class="admin-modal-form">
+      <div class="form-group">
+        <label for="driverNameInput">Nome Completo do Entregador</label>
+        <input type="text" id="driverNameInput" class="form-input" placeholder="Ex: Lucas Ferreira Silva" required>
+      </div>
+      <div class="form-row">
+        <div class="form-group flex-1">
+          <label for="driverPhoneInput">WhatsApp / Celular</label>
+          <input type="tel" id="driverPhoneInput" class="form-input" placeholder="(11) 98888-7777" required>
+        </div>
+        <div class="form-group flex-1">
+          <label for="driverVehicleInput">Veículo / Modelo</label>
+          <input type="text" id="driverVehicleInput" class="form-input" placeholder="Ex: Honda CG 160" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="driverStatusSelect">Status Inicial</label>
+        <select id="driverStatusSelect" class="form-input">
+          <option value="Disponível|green">🟢 Disponível para Entregas</option>
+          <option value="Aguardando no Balcão|green">🟡 Aguardando no Balcão</option>
+          <option value="Em Rota|amber">🟠 Em Rota de Entrega</option>
+        </select>
+      </div>
+      <div class="admin-form-modal-actions">
+        <button type="button" class="btn btn-secondary" id="cancelDriverModalBtn">Cancelar</button>
+        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Salvar Entregador</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL DE COMANDA TÉRMICA (80mm) PRONTA PARA IMPRESSÃO
+       ========================================================================== -->
+  <div class="thermal-modal-backdrop" id="thermalModalBackdrop"></div>
+  <div class="thermal-modal" id="thermalModal" role="dialog" aria-modal="true">
+    <div class="thermal-modal-header">
+      <h3 class="thermal-header-title"><i class="fa-solid fa-receipt"></i> Comanda Térmica de Produção</h3>
+      <button class="btn-icon-subtle" id="closeThermalModalBtn"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    
+    <!-- Visualização Fiel da Comanda Térmica 80mm -->
+    <div class="thermal-receipt-paper" id="thermalReceiptContent">
+      <div class="receipt-center">
+        <h2 class="receipt-brand">=== RESHT GOURMET ===</h2>
+        <p class="receipt-sub">Alameda dos Sabores, 1420 - SP</p>
+        <p class="receipt-order-id" id="receiptOrderId">PEDIDO #RST-8492</p>
+        <p class="receipt-date" id="receiptDate">24/09/2026 19:42:10</p>
+      </div>
+      <div class="receipt-divider">================================</div>
+      <div class="receipt-customer-block">
+        <p><strong>CLIENTE:</strong> <span id="receiptCustName">Nilton Silva</span></p>
+        <p><strong>TELEFONE:</strong> <span id="receiptCustPhone">(11) 98765-4321</span></p>
+        <p><strong>ENTREGA:</strong> <span id="receiptCustAddress">Av. Paulista, 1500 - Ap 42</span></p>
+      </div>
+      <div class="receipt-divider">--------------------------------</div>
+      <div class="receipt-items-list" id="receiptItemsList">
+        <!-- Itens injetados via JS -->
+      </div>
+      <div class="receipt-divider">--------------------------------</div>
+      <div class="receipt-totals-block">
+        <div class="receipt-flex"><span>SUBTOTAL:</span><strong id="receiptSubtotal">R$ 89,80</strong></div>
+        <div class="receipt-flex"><span>TAXA ENTREGA:</span><strong id="receiptDelivery">R$ 7,90</strong></div>
+        <div class="receipt-flex-total"><span>TOTAL:</span><strong id="receiptTotal">R$ 97,70</strong></div>
+        <div class="receipt-flex"><span>PAGAMENTO:</span><strong id="receiptPayment">PIX (PAGO)</strong></div>
+      </div>
+      <div class="receipt-divider">================================</div>
+      <div class="receipt-center receipt-footer">
+        <p>*** CONTROLE DE COZINHA & EXPEDIÇÃO ***</p>
+        <p>www.resht.com.br</p>
+      </div>
+    </div>
+
+    <div class="thermal-modal-actions">
+      <button class="btn btn-secondary" id="printThermalBtn"><i class="fa-solid fa-print"></i> Imprimir Comanda</button>
+      <button class="btn btn-primary" id="doneThermalBtn">Concluir</button>
+    </div>
+  </div>
+
+  <!-- Toast de Notificações do Backoffice -->
+  <div class="toast" id="adminToast">
+    <i class="fa-solid fa-circle-check toast-icon"></i>
+    <span class="toast-message" id="adminToastMessage">Notificação do sistema</span>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>

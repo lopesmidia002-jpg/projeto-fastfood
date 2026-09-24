@@ -1,0 +1,124 @@
+# ========================
+# SISTEMA OPERACIONAL
+# ========================
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Linux
+*~
+
+# ========================
+# EDITORES & IDEs
+# ========================
+# VS Code
+.vscode/
+*.code-workspace
+
+# JetBrains (WebStorm, IntelliJ)
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Vim / Neovim
+*.swp
+*.swo
+*.un~
+Session.vim
+
+# ========================
+# NODE.JS (caso use npm/pnpm)
+# ========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm
+.pnp/
+.pnp.js
+.yarn/
+
+# Builds e distribuição
+dist/
+build/
+out/
+.next/
+.nuxt/
+.cache/
+
+# Variáveis de ambiente (NUNCA commitar!)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.local
+
+# ========================
+# BANCO DE DADOS & PRISMA
+# ========================
+*.db
+*.sqlite
+*.sqlite3
+prisma/migrations/
+prisma/.env
+
+# ========================
+# LOGS
+# ========================
+logs/
+*.log
+*.log.*
+
+# ========================
+# ARQUIVOS TEMPORÁRIOS
+# ========================
+tmp/
+temp/
+*.tmp
+*.temp
+*.bak
+*.backup
+*.orig
+
+# ========================
+# FERRAMENTAS DE BUILD
+# ========================
+*.map
+coverage/
+.nyc_output/
+.eslintcache
+.stylelintcache
+
+# ========================
+# ANTIGRAVITY / AGENTES IA
+# ========================
+.gemini/
+.agents/rules/*.local.md
+
+# ========================
+# MÍDIA PESADA (versionar separado via LFS se necessário)
+# ========================
+# Descomente as linhas abaixo se não quiser versionar os frames da animação 3D
+# Floating_food_animation*/
+# *.mp4
+# *.mov
+# *.avi
+# *.webm

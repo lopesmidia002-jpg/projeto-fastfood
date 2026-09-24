@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RESHT — Alta Gastronomia Artesanal & Burgers Gourmet</title>
+  <meta name="description" content="Descubra a excelência culinária em cada detalhe com nossos pratos artesanais exclusivos, parrilla a carvão nobre e ingredientes orgânicos no RESHT.">
+  <meta name="keywords" content="hambúrguer gourmet, alta gastronomia, parrilla, pizza napolitana, delivery premium, restaurante jardins sp">
+  <meta name="author" content="RESHT Gourmet Experience">
+  <meta name="theme-color" content="#09090b">
+
+  <!-- Open Graph / Facebook / WhatsApp -->
+  <meta property="og:type" content="restaurant.restaurant">
+  <meta property="og:title" content="RESHT — Alta Gastronomia Artesanal & Burgers Gourmet">
+  <meta property="og:description" content="Saboreie o autêntico sabor da tradição em uma experiência gastronômica de alta performance e sofisticação.">
+  <meta property="og:image" content="assets/burger.jpg">
+  <meta property="og:locale" content="pt_BR">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="RESHT — Alta Gastronomia Artesanal">
+  <meta name="twitter:description" content="Saboreie o autêntico sabor da tradição com hambúrgueres artesanais e pizzas napolitanas no RESHT.">
+  <meta name="twitter:image" content="assets/burger.jpg">
+
+  <!-- Schema.org JSON-LD para Restaurante -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "RESHT Gourmet",
+    "image": "assets/restaurant.jpg",
+    "description": "Alta gastronomia artesanal, parrilla a carvão nobre, pizzas napolitanas e cocktails autorais em São Paulo.",
+    "servesCuisine": "Gourmet, Hamburgueria Artesanal, Pizza Napolitana, Alta Gastronomia",
+    "priceRange": "$$$",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Alameda dos Sabores, 1420",
+      "addressLocality": "São Paulo",
+      "addressRegion": "SP",
+      "postalCode": "01410-000",
+      "addressCountry": "BR"
+    },
+    "telephone": "+5511987654321",
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        "opens": "18:30",
+        "closes": "23:45"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Saturday", "Sunday"],
+        "opens": "12:00",
+        "closes": "15:30"
+      }
+    ]
+  }
+  </script>
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient background glow elements -->
+  <div class="ambient-glow glow-top-right"></div>
+  <div class="ambient-glow glow-bottom-left"></div>
+  <div class="ambient-glow glow-center"></div>
+
+  <!-- Ambient Floating Dust Particles / Bokeh Lights Canvas -->
+  <canvas id="ambientParticlesCanvas" class="ambient-particles-canvas" aria-hidden="true"></canvas>
+
+  <!-- Main Container -->
+  <div class="page-wrapper">
+    
+    <!-- Header / Navbar -->
+    <header class="navbar" id="navbar">
+      <div class="nav-container">
+        <!-- Logo -->
+        <a href="#home" class="logo" id="logo">
+          <div class="logo-icon-box">
+            <i class="fa-solid fa-fire-flame-curved"></i>
+          </div>
+          <span class="logo-text">RESHT<span class="logo-dot">.</span></span>
+        </a>
+
+        <!-- Navigation Links -->
+        <nav class="nav-menu" id="navMenu">
+          <ul class="nav-list">
+            <li class="nav-item"><a href="#home" class="nav-link active" id="nav-home">Início</a></li>
+            <li class="nav-item"><a href="#about" class="nav-link" id="nav-about">Sobre Nós</a></li>
+            <li class="nav-item"><a href="#menu" class="nav-link" id="nav-menu">Cardápio</a></li>
+            <li class="nav-item"><a href="#chefs" class="nav-link" id="nav-chefs">Nossos Chefs</a></li>
+            <li class="nav-item"><a href="#contact" class="nav-link" id="nav-contact">Contato</a></li>
+          </ul>
+        </nav>
+
+        <!-- Right Actions -->
+        <div class="nav-actions">
+          <!-- Search Button -->
+          <button class="action-btn" id="searchBtn" aria-label="Buscar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span class="tooltip">Buscar</span>
+          </button>
+
+          <!-- Theme Toggle Button -->
+          <button class="action-btn theme-toggle" id="themeToggle" aria-label="Alternar Tema">
+            <i class="fa-solid fa-moon dark-icon"></i>
+            <i class="fa-solid fa-sun light-icon"></i>
+            <span class="tooltip">Tema</span>
+          </button>
+
+          <!-- Favorites Button -->
+          <button class="action-btn" id="favBtn" aria-label="Favoritos">
+            <i class="fa-regular fa-heart"></i>
+            <span class="action-badge fav-badge" id="favBadge">3</span>
+            <span class="tooltip">Favoritos</span>
+          </button>
+
+          <!-- Cart Button -->
+          <button class="action-btn cart-btn" id="cartBtn" aria-label="Carrinho de Compras">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span class="action-badge cart-badge" id="cartBadge">8</span>
+            <span class="tooltip">Carrinho</span>
+          </button>
+
+          <!-- User Profile -->
+          <button class="action-btn profile-btn" id="profileBtn" aria-label="Perfil do Usuário">
+            <div class="avatar-ring">
+              <i class="fa-solid fa-user"></i>
+            </div>
+            <span class="tooltip">Perfil</span>
+          </button>
+
+          <!-- Mobile Menu Toggle -->
+          <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir Menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-drawer" id="mobileDrawer">
+      <div class="mobile-drawer-header">
+        <div class="logo">
+          <div class="logo-icon-box"><i class="fa-solid fa-fire-flame-curved"></i></div>
+          <span class="logo-text">RESHT<span class="logo-dot">.</span></span>
+        </div>
+        <button class="drawer-close-btn" id="closeDrawerBtn" aria-label="Fechar Menu"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <ul class="mobile-nav-list">
+        <li><a href="#home" class="mobile-nav-link active">Início</a></li>
+        <li><a href="#about" class="mobile-nav-link">Sobre Nós</a></li>
+        <li><a href="#menu" class="mobile-nav-link">Cardápio</a></li>
+        <li><a href="#chefs" class="mobile-nav-link">Nossos Chefs</a></li>
+        <li><a href="#contact" class="mobile-nav-link">Contato</a></li>
+      </ul>
+      <div class="mobile-drawer-footer">
+        <button class="btn btn-primary w-full" id="mobileOrderBtn">
+          <span>Pedir Agora</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+    <div class="drawer-backdrop" id="drawerBackdrop"></div>
+
+    <!-- Hero Section with Full Animated Background -->
+    <main class="hero-section" id="home">
+      
+      <!-- Full Hero Background Animation Canvas Stage -->
+      <div class="hero-bg-stage" id="heroBgStage">
+        <!-- 60FPS Sequence Canvas -->
+        <canvas id="sequenceCanvas" width="1920" height="1080"></canvas>
+        
+        <!-- Smooth Vignette and Edge Blending -->
+        <div class="hero-vignette-left"></div>
+        <div class="hero-vignette-bottom"></div>
+        <div class="hero-vignette-radial"></div>
+
+        <!-- Loading Indicator for Image Sequence Preload -->
+        <div class="loader-overlay" id="loaderOverlay">
+          <div class="loader-spinner"></div>
+          <span class="loader-text" id="loaderText">Carregando Animação 3D... 0%</span>
+        </div>
+      </div>
+
+      <div class="hero-container">
+        
+        <!-- Left Hero Content -->
+        <div class="hero-content">
+          
+          <!-- Pill Tag -->
+          <div class="hero-pill-badge" id="heroPill">
+            <span class="pill-fire-icon">🔥</span>
+            <span class="pill-text">Ingredientes 100% Orgânicos</span>
+            <div class="pill-glow"></div>
+          </div>
+
+          <!-- Headline H1 -->
+          <h1 class="hero-title" id="heroTitle">
+            Saboreie o <span class="highlight-text">Autêntico</span><br>
+            Sabor da Tradição
+          </h1>
+
+          <!-- Paragraph Description -->
+          <p class="hero-description" id="heroDesc">
+            Descubra a excelência culinária em cada detalhe com nossos pratos artesanais exclusivos, preparados com amor e os ingredientes mais nobres para uma experiência inesquecível.
+          </p>
+
+          <!-- CTA Buttons -->
+          <div class="hero-cta-group">
+            <button class="btn btn-primary" id="orderNowBtn">
+              <span class="btn-text">Pedir Agora</span>
+              <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
+              <div class="btn-shine"></div>
+            </button>
+            <button class="btn btn-secondary" id="reserveTableBtn">
+              <i class="fa-regular fa-calendar-check btn-secondary-icon"></i>
+              <span class="btn-text">Reservar Mesa</span>
+            </button>
+          </div>
+
+          <!-- Statistics & Metrics Section -->
+          <div class="hero-metrics">
+            <!-- Metric 1 -->
+            <div class="metric-card" id="metric-1">
+              <div class="metric-badge">
+                <span class="badge-number">1</span>
+              </div>
+              <div class="metric-info">
+                <h3 class="metric-value">1.000+</h3>
+                <p class="metric-label">Clientes Satisfeitos</p>
+              </div>
+            </div>
+
+            <!-- Metric 2 -->
+            <div class="metric-card" id="metric-2">
+              <div class="metric-badge">
+                <span class="badge-number">2</span>
+              </div>
+              <div class="metric-info">
+                <h3 class="metric-value">50+</h3>
+                <p class="metric-label">Pratos Exclusivos</p>
+              </div>
+            </div>
+
+            <!-- Metric 3 -->
+            <div class="metric-card" id="metric-3">
+              <div class="metric-badge">
+                <span class="badge-number">3</span>
+              </div>
+              <div class="metric-info">
+                <h3 class="metric-value">Chefs</h3>
+                <p class="metric-label">Premiados</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Hero Visual Spacer / Interactive Area -->
+        <div class="hero-visual-spacer" id="heroVisualSpacer"></div>
+
+      </div>
+    </main>
+
+    <!-- Menu / Cardápio Interativo Section -->
+    <section class="menu-section" id="menu">
+      <div class="section-container">
+        
+        <!-- Header da Seção -->
+        <div class="section-header text-center">
+          <div class="hero-pill-badge mx-auto">
+            <span class="pill-fire-icon">🍴</span>
+            <span class="pill-text">Cardápio de Alta Gastronomia</span>
+          </div>
+          <h2 class="section-title">
+            Conheça Nossas <span class="highlight-text">Especialidades</span>
+          </h2>
+          <p class="section-subtitle">
+            Receitas autorais preparadas com paixão, cortes nobres e ingredientes 100% selecionados.
+          </p>
+        </div>
+
+        <!-- Abas de Categorias -->
+        <div class="menu-categories-wrapper">
+          <div class="menu-categories" id="menuCategories">
+            <button class="category-btn active" data-category="all">
+              <i class="fa-solid fa-fire"></i>
+              <span>Todos os Pratos</span>
+            </button>
+            <button class="category-btn" data-category="burgers">
+              <i class="fa-solid fa-burger"></i>
+              <span>Hambúrgueres</span>
+            </button>
+            <button class="category-btn" data-category="pizzas">
+              <i class="fa-solid fa-pizza-slice"></i>
+              <span>Pizzas Artesanais</span>
+            </button>
+            <button class="category-btn" data-category="drinks">
+              <i class="fa-solid fa-martini-glass-citrus"></i>
+              <span>Bebidas & Drinks</span>
+            </button>
+            <button class="category-btn" data-category="desserts">
+              <i class="fa-solid fa-cake-candles"></i>
+              <span>Sobremesas</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Grid de Cards de Pratos -->
+        <div class="menu-grid" id="menuGrid">
+          
+          <!-- Card 1: Burger -->
+          <div class="dish-card glass-card" data-category="burgers">
+            <div class="dish-image-box">
+              <img src="assets/burger.jpg" alt="RESHT Royal Smash & Bacon" class="dish-img" loading="lazy">
+              <span class="dish-badge flame"><i class="fa-solid fa-fire"></i> Mais Pedido</span>
+              <button class="dish-fav-btn" aria-label="Favoritar Prato"><i class="fa-regular fa-heart"></i></button>
+            </div>
+            <div class="dish-content">
+              <div class="dish-rating">
+                <i class="fa-solid fa-star"></i>
+                <span>4.9 (340 avaliações)</span>
+              </div>
+              <h3 class="dish-title">RESHT Royal Smash & Bacon</h3>
+              <p class="dish-desc">Dois smash burgers de Angus 180g, queijo cheddar inglês derretido, bacon artesanal crocante, alface americana e pão brioche amanteigado.</p>
+              <div class="dish-footer">
+                <div class="dish-price-box">
+                  <span class="price-currency">R$</span>
+                  <span class="price-val">44,90</span>
+                </div>
+                <button class="btn-add-cart" data-id="dish-1" data-name="RESHT Royal Smash & Bacon" data-price="44.90" data-img="assets/burger.jpg">
+                  <i class="fa-solid fa-plus"></i>
+                  <span>Adicionar</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Pizza -->
+          <div class="dish-card glass-card" data-category="pizzas">
+            <div class="dish-image-box">
+              <img src="assets/pizza.jpg" alt="Pizza Trufada Napolitana" class="dish-img" loading="lazy">
+              <span class="dish-badge gold"><i class="fa-solid fa-crown"></i> Chef Choice</span>
+              <button class="dish-fav-btn" aria-label="Favoritar Prato"><i class="fa-regular fa-heart"></i></button>
+            </div>
+            <div class="dish-content">
+              <div class="dish-rating">
+                <i class="fa-solid fa-star"></i>
+                <span>5.0 (215 avaliações)</span>
+              </div>
+              <h3 class="dish-title">Pizza Trufada Napolitana</h3>
+              <p class="dish-desc">Massa de fermentação lenta 48h, molho de tomate San Marzano DOP, mozzarella de búfala fresca, pepperoni e azeite trufado.</p>
+              <div class="dish-footer">
+                <div class="dish-price-box">
+                  <span class="price-currency">R$</span>
+                  <span class="price-val">68,00</span>
+                </div>
+                <button class="btn-add-cart" data-id="dish-2" data-name="Pizza Trufada Napolitana" data-price="68.00" data-img="assets/pizza.jpg">
+                  <i class="fa-solid fa-plus"></i>
+                  <span>Adicionar</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Drink -->
+          <div class="dish-card glass-card" data-category="drinks">
+            <div class="dish-image-box">
+              <img src="assets/drink.jpg" alt="Cocktail Berry Flame Splash" class="dish-img" loading="lazy">
+              <span class="dish-badge ruby"><i class="fa-solid fa-wand-magic-sparkles"></i> Exclusivo</span>
+              <button class="dish-fav-btn" aria-label="Favoritar Prato"><i class="fa-regular fa-heart"></i></button>
+            </div>
+            <div class="dish-content">
+              <div class="dish-rating">
+                <i class="fa-solid fa-star"></i>
+                <span>4.8 (180 avaliações)</span>
+              </div>
+              <h3 class="dish-title">Cocktail Berry Flame Splash</h3>
+              <p class="dish-desc">Gin artesanal infusionado com frutas vermelhas silvestres, xarope de hibisco fresco, água tônica botânica e toque de hortelã fresca.</p>
+              <div class="dish-footer">
+                <div class="dish-price-box">
+                  <span class="price-currency">R$</span>
+                  <span class="price-val">28,50</span>
+                </div>
+                <button class="btn-add-cart" data-id="dish-3" data-name="Cocktail Berry Flame Splash" data-price="28.50" data-img="assets/drink.jpg">
+                  <i class="fa-solid fa-plus"></i>
+                  <span>Adicionar</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4: Dessert -->
+          <div class="dish-card glass-card" data-category="desserts">
+            <div class="dish-image-box">
+              <img src="assets/dessert.jpg" alt="Gateau de Chocolate & Gelato" class="dish-img" loading="lazy">
+              <span class="dish-badge gold"><i class="fa-solid fa-gem"></i> Ouro 24k</span>
+              <button class="dish-fav-btn" aria-label="Favoritar Prato"><i class="fa-regular fa-heart"></i></button>
+            </div>
+            <div class="dish-content">
+              <div class="dish-rating">
+                <i class="fa-solid fa-star"></i>
+                <span>4.9 (290 avaliações)</span>
+              </div>
+              <h3 class="dish-title">Gateau de Chocolate & Gelato</h3>
+              <p class="dish-desc">Bolo vulcão com chocolate belga 70% derretido, pó de ouro comestível, frutas vermelhas frescas e gelato artesanal de baunilha de Madagascar.</p>
+              <div class="dish-footer">
+                <div class="dish-price-box">
+                  <span class="price-currency">R$</span>
+                  <span class="price-val">32,00</span>
+                </div>
+                <button class="btn-add-cart" data-id="dish-4" data-name="Gateau de Chocolate & Gelato" data-price="32.00" data-img="assets/dessert.jpg">
+                  <i class="fa-solid fa-plus"></i>
+                  <span>Adicionar</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 5: Burger 2 -->
+          <div class="dish-card glass-card" data-category="burgers">
+            <div class="dish-image-box">
+              <img src="assets/burger.jpg" alt="Burger Trufado Supreme" class="dish-img" loading="lazy">
+              <span class="dish-badge green"><i class="fa-solid fa-leaf"></i> 100% Angus</span>
+              <button class="dish-fav-btn" aria-label="Favoritar Prato"><i class="fa-regular fa-heart"></i></button>
+            </div>
+            <div class="dish-content">
+              <div class="dish-rating">
+                <i class="fa-solid fa-star"></i>
+                <span>4.9 (165 avaliações)</span>
+              </div>
+              <h3 class="dish-title">Burger Trufado Supreme</h3>
+              <p class="dish-desc">Blend de Black Angus 200g grelhado no fogo, maionese de trufas negras, queijo gruyère maçaricado e cebola caramelizada no vinho tinto.</p>
+              <div class="dish-footer">
+                <div class="dish-price-box">
+                  <span class="price-currency">R$</span>
+                  <span class="price-val">49,90</span>
+                </div>
+                <button class="btn-add-cart" data-id="dish-5" data-name="Burger Trufado Supreme" data-price="49.90" data-img="assets/burger.jpg">
+                  <i class="fa-solid fa-plus"></i>
+                  <span>Adicionar</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 6: Pizza 2 -->
+          <div class="dish-card glass-card" data-category="pizzas">
+            <div class="dish-image-box">
+              <img src="assets/pizza.jpg" alt="Pizza Quatro Queijos Rústica" class="dish-img" loading="lazy">
+              <span class="dish-badge flame"><i class="fa-solid fa-fire-burner"></i> Forno à Lenha</span>
+              <button class="dish-fav-btn" aria-label="Favoritar Prato"><i class="fa-regular fa-heart"></i></button>
+            </div>
+            <div class="dish-content">
+              <div class="dish-rating">
+                <i class="fa-solid fa-star"></i>
+                <span>4.8 (140 avaliações)</span>
+              </div>
+              <h3 class="dish-title">Pizza Quatro Queijos Rústica</h3>
+              <p class="dish-desc">Mozzarella fior di latte, gorgonzola dolce italiano, provolone defumado e parmesão reggiano 24 meses com toque de mel silvestre.</p>
+              <div class="dish-footer">
+                <div class="dish-price-box">
+                  <span class="price-currency">R$</span>
+                  <span class="price-val">64,00</span>
+                </div>
+                <button class="btn-add-cart" data-id="dish-6" data-name="Pizza Quatro Queijos Rústica" data-price="64.00" data-img="assets/pizza.jpg">
+                  <i class="fa-solid fa-plus"></i>
+                  <span>Adicionar</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SEÇÃO SOBRE NÓS (#about)
+         ========================================================================== -->
+    <section class="about-section" id="about">
+      <div class="container">
+        <div class="about-grid">
+          
+          <!-- Lado Esquerdo: Imagem & Badges Flutuantes -->
+          <div class="about-image-wrapper">
+            <div class="about-main-img-box glass-card">
+              <img src="assets/restaurant.jpg" alt="Ambiente sofisticado do RESHT" class="about-main-img" loading="lazy">
+              <div class="about-img-overlay"></div>
+            </div>
+
+            <!-- Floating Stat Card 1 -->
+            <div class="about-floating-card top-right glass-card">
+              <div class="stat-icon-circle flame"><i class="fa-solid fa-award"></i></div>
+              <div class="stat-text-box">
+                <span class="stat-num">3x Vencedor</span>
+                <span class="stat-label">Melhor Burger Gourmet SP</span>
+              </div>
+            </div>
+
+            <!-- Floating Stat Card 2 -->
+            <div class="about-floating-card bottom-left glass-card">
+              <div class="stat-icon-circle emerald"><i class="fa-solid fa-wine-glass"></i></div>
+              <div class="stat-text-box">
+                <span class="stat-num">300+ Rótulos</span>
+                <span class="stat-label">Adega Climatizada & Drinks</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lado Direito: História & Pilares de Qualidade -->
+          <div class="about-content">
+            <div class="section-tag">
+              <i class="fa-solid fa-gem"></i>
+              <span>Nossa Herança Culinária</span>
+            </div>
+            <h2 class="section-title">
+              A Arte da Gastronomia de Fogo e <span class="gradient-text">Alta Precisão</span>
+            </h2>
+            <p class="section-description">
+              Fundado com a ambição de transformar os clássicos do fast-food em obras de alta gastronomia, o <strong>RESHT</strong> combina a ancestralidade da parrilla a carvão nobre com técnicas modernas da culinária internacional.
+            </p>
+            <p class="section-description">
+              Cada burger, massa e cocktail é elaborado artesanalmente com ingredientes orgânicos certificados, queijos de Denominação de Origem Protegida (DOP) e carnes Black Angus 100% rastreadas.
+            </p>
+
+            <!-- 3 Pilares -->
+            <div class="about-features-grid">
+              <div class="feature-item glass-card">
+                <div class="feature-icon-box"><i class="fa-solid fa-fire-burner"></i></div>
+                <div>
+                  <h4 class="feature-title">Parrilla a Fogo Vivo</h4>
+                  <p class="feature-desc">Defumação sutil em lenhas de macieira e ponto exato da carne no calor das brasas.</p>
+                </div>
+              </div>
+
+              <div class="feature-item glass-card">
+                <div class="feature-icon-box"><i class="fa-solid fa-seedling"></i></div>
+                <div>
+                  <h4 class="feature-title">Ingredientes 100% Puros</h4>
+                  <p class="feature-desc">Massa de fermentação 48h, tomates San Marzano e queijos importados da Itália.</p>
+                </div>
+              </div>
+
+              <div class="feature-item glass-card">
+                <div class="feature-icon-box"><i class="fa-solid fa-martini-glass-citrus"></i></div>
+                <div>
+                  <h4 class="feature-title">Mixologia Sensorial</h4>
+                  <p class="feature-desc">Cocktails autorais desenvolvidos por premiados bartenders para harmonização perfeita.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="about-cta-box">
+              <a href="#reservation" class="btn btn-primary">
+                <i class="fa-solid fa-calendar-check"></i>
+                <span>Reservar uma Experiência</span>
+              </a>
+              <div class="chef-signature-box">
+                <span class="chef-sig-name">Alex Laurent</span>
+                <span class="chef-sig-role">Chef Executivo & Fundador</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SEÇÃO NOSSOS CHEFS (#chefs)
+         ========================================================================== -->
+    <section class="chefs-section" id="chefs">
+      <div class="container">
+        <div class="section-header text-center">
+          <div class="section-tag center">
+            <i class="fa-solid fa-crown"></i>
+            <span>Mestres do Sabor</span>
+          </div>
+          <h2 class="section-title">
+            Conheça os <span class="gradient-text">Chefs & Especialistas</span> do RESHT
+          </h2>
+          <p class="section-subtitle">
+            Profissionais apaixonados que dedicam suas vidas ao aperfeiçoamento da alta gastronomia artesanal.
+          </p>
+        </div>
+
+        <div class="chefs-grid">
+          
+          <!-- Chef 1: Alex Laurent -->
+          <div class="chef-card glass-card">
+            <div class="chef-img-wrapper">
+              <img src="assets/chef.jpg" alt="Chef Alex Laurent" class="chef-photo" loading="lazy">
+              <div class="chef-socials">
+                <a href="#" class="chef-social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="chef-social-link" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+              </div>
+              <span class="chef-badge flame"><i class="fa-solid fa-fire"></i> Master Chef Executivo</span>
+            </div>
+            <div class="chef-info">
+              <h3 class="chef-name">Alex Laurent</h3>
+              <p class="chef-specialty">Mestre Parrillero & Criação de Cardápio</p>
+              <p class="chef-bio">Com 16 anos de experiência em cozinhas internacionais, Alex comanda os fogos do RESHT com rigor técnico e inovação audaciosa.</p>
+              <div class="chef-dish-tag">
+                <i class="fa-solid fa-utensils"></i>
+                <span>Prato Assinado: <strong>Royal Smash Trufado</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chef 2: Giulia Rossi -->
+          <div class="chef-card glass-card">
+            <div class="chef-img-wrapper">
+              <img src="assets/pizza.jpg" alt="Chef Giulia Rossi" class="chef-photo" loading="lazy">
+              <div class="chef-socials">
+                <a href="#" class="chef-social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="chef-social-link" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+              </div>
+              <span class="chef-badge gold"><i class="fa-solid fa-star"></i> Mestre Pizzaiola</span>
+            </div>
+            <div class="chef-info">
+              <h3 class="chef-name">Giulia Rossi</h3>
+              <p class="chef-specialty">Especialista em Fermentação Lenta 48h</p>
+              <p class="chef-bio">Formada em Nápoles, Giulia domina os segredos da farinha tipo 00 italiana e o equilíbrio térmico dos fornos a 450°C.</p>
+              <div class="chef-dish-tag">
+                <i class="fa-solid fa-utensils"></i>
+                <span>Prato Assinado: <strong>Pizza Trufada Napolitana</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chef 3: Leonardo Vance -->
+          <div class="chef-card glass-card">
+            <div class="chef-img-wrapper">
+              <img src="assets/dessert.jpg" alt="Chef Leonardo Vance" class="chef-photo" loading="lazy">
+              <div class="chef-socials">
+                <a href="#" class="chef-social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="chef-social-link" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+              </div>
+              <span class="chef-badge emerald"><i class="fa-solid fa-gem"></i> Chef Pâtissier</span>
+            </div>
+            <div class="chef-info">
+              <h3 class="chef-name">Leonardo Vance</h3>
+              <p class="chef-specialty">Alta Confeitaria & Chocolatier Belga</p>
+              <p class="chef-bio">Criador de sobremesas que combinam textura aveludada, ouro comestível 24k e gelatos artesanais infusionados.</p>
+              <div class="chef-dish-tag">
+                <i class="fa-solid fa-utensils"></i>
+                <span>Prato Assinado: <strong>Gateau de Ouro & Gelato</strong></span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SEÇÃO RESERVA DE MESAS (#reservation)
+         ========================================================================== -->
+    <section class="reservation-section" id="reservation">
+      <div class="container">
+        <div class="reservation-card-wrapper glass-card">
+          <div class="reservation-grid">
+            
+            <!-- Lado Esquerdo: Info de Boas-Vindas & Contatos -->
+            <div class="reservation-info-col">
+              <div class="section-tag">
+                <i class="fa-solid fa-calendar-days"></i>
+                <span>Mesa Exclusiva</span>
+              </div>
+              <h2 class="reservation-title">
+                Reserve uma Noite <span class="gradient-text">Inesquecível</span>
+              </h2>
+              <p class="reservation-desc">
+                Garanta o seu lugar no ambiente mais exclusivo da cidade. Oferecemos atendimento personalizado, menu degustação sob consulta e harmonização com nossa adega premiada.
+              </p>
+
+              <div class="res-details-list">
+                <div class="res-detail-item">
+                  <div class="res-icon"><i class="fa-solid fa-clock"></i></div>
+                  <div>
+                    <strong>Horários de Funcionamento</strong>
+                    <p>Terça a Domingo: 18:30 às 23:45 (Jantar) | Sáb e Dom: 12:00 às 15:30 (Almoço)</p>
+                  </div>
+                </div>
+
+                <div class="res-detail-item">
+                  <div class="res-icon"><i class="fa-solid fa-location-dot"></i></div>
+                  <div>
+                    <strong>Localização Nobre</strong>
+                    <p>Alameda dos Sabores, 1420 — Jardins, São Paulo - SP</p>
+                    <div class="address-map-links">
+                      <a href="https://www.google.com/maps/search/?api=1&query=Alameda+dos+Sabores+1420+Jardins+Sao+Paulo+SP" target="_blank" rel="noopener" class="map-app-btn google-maps" title="Abrir localização no Google Maps">
+                        <i class="fa-brands fa-google"></i> Google Maps
+                      </a>
+                      <a href="https://waze.com/ul?q=Alameda%20dos%20Sabores%2C%201420%20Jardins%20S%C3%A3o%20Paulo%20SP&navigate=yes" target="_blank" rel="noopener" class="map-app-btn waze" title="Navegar com Waze">
+                        <i class="fa-brands fa-waze"></i> Waze
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="res-detail-item">
+                  <div class="res-icon"><i class="fa-brands fa-whatsapp"></i></div>
+                  <div>
+                    <strong>Concierge & Reservas VIP</strong>
+                    <p>(11) 98765-4321 | reservas@resht.com</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="res-highlight-box">
+                <i class="fa-solid fa-champagne-glasses text-primary"></i>
+                <span>Todas as reservas comemorativas incluem brinde de boas-vindas oferecido pelo Chef.</span>
+              </div>
+            </div>
+
+            <!-- Lado Direito: Formulário de Reserva -->
+            <div class="reservation-form-col">
+              <form id="reservationForm" class="reservation-form">
+                <h3 class="res-form-heading"><i class="fa-solid fa-receipt"></i> Solicitar Reserva</h3>
+
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label for="resName"><i class="fa-regular fa-user"></i> Nome Completo</label>
+                    <input type="text" id="resName" class="form-input" required placeholder="Seu nome completo">
+                  </div>
+                  <div class="form-group">
+                    <label for="resPhone"><i class="fa-brands fa-whatsapp"></i> WhatsApp para Confirmação</label>
+                    <input type="tel" id="resPhone" class="form-input" required placeholder="(11) 99999-9999">
+                  </div>
+                </div>
+
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label for="resDate"><i class="fa-regular fa-calendar"></i> Data Desejada</label>
+                    <input type="date" id="resDate" class="form-input" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="resTime"><i class="fa-regular fa-clock"></i> Horário</label>
+                    <select id="resTime" class="form-select" required>
+                      <option value="">Selecione o Horário</option>
+                      <option value="12:30">12:30 (Almoço)</option>
+                      <option value="14:00">14:00 (Almoço)</option>
+                      <option value="19:00">19:00 (Jantar)</option>
+                      <option value="20:30">20:30 (Jantar)</option>
+                      <option value="21:45">21:45 (Jantar)</option>
+                      <option value="22:30">22:30 (Jantar)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label for="resGuests"><i class="fa-solid fa-users"></i> Número de Convidados</label>
+                    <select id="resGuests" class="form-select" required>
+                      <option value="1">1 Pessoa</option>
+                      <option value="2" selected>2 Pessoas (Casal)</option>
+                      <option value="3">3 Pessoas</option>
+                      <option value="4">4 Pessoas</option>
+                      <option value="5-6">5 a 6 Pessoas</option>
+                      <option value="7-10">7 a 10 Pessoas</option>
+                      <option value="10+">10+ Pessoas (Privativo)</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="resAmbience"><i class="fa-solid fa-couch"></i> Ambiente Preferido</label>
+                    <select id="resAmbience" class="form-select">
+                      <option value="Salão Principal Gourmet" selected>Salão Principal Gourmet</option>
+                      <option value="Varanda Lounge ao Ar Livre">Varanda Lounge</option>
+                      <option value="Wine Corner Privativo">Wine Corner Privativo</option>
+                      <option value="Mesa Chef View (Parrilla)">Mesa Chef View (Parrilla)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group mb-4">
+                  <label for="resOccasion"><i class="fa-solid fa-gift"></i> Ocasião Especial (Opcional)</label>
+                  <select id="resOccasion" class="form-select">
+                    <option value="Jantar Casual">Jantar Casual Gourmet</option>
+                    <option value="Aniversário">Comemoração de Aniversário</option>
+                    <option value="Romântico / Aniversário de Casamento">Romântico / Comemoração</option>
+                    <option value="Reunião de Negócios">Almoço / Jantar de Negócios</option>
+                  </select>
+                </div>
+
+                <div class="form-group mb-4">
+                  <label for="resNotes"><i class="fa-regular fa-comment-dots"></i> Observações ou Restrições Alimentares</label>
+                  <textarea id="resNotes" class="form-input" rows="2" placeholder="Ex: Preferência por mesa no canto, restrição a glúten, bolo de aniversário..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-full btn-res-submit" id="submitReservationBtn">
+                  <i class="fa-solid fa-paper-plane"></i>
+                  <span>Enviar Solicitação de Reserva</span>
+                </button>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         RODAPÉ MODERNO (#contact)
+         ========================================================================== -->
+    <footer class="site-footer" id="contact">
+      <div class="footer-top-glow"></div>
+      <div class="container">
+        <div class="footer-grid">
+          
+          <!-- Coluna 1: Marca & Apresentação -->
+          <div class="footer-col brand-col">
+            <a href="#home" class="logo footer-logo">
+              <div class="logo-icon-box">
+                <i class="fa-solid fa-fire-flame-curved"></i>
+              </div>
+              <span class="logo-text">RESHT<span class="logo-dot">.</span></span>
+            </a>
+            <p class="footer-brand-desc">
+              A máxima expressão da alta gastronomia artesanal. Carnes Black Angus nobres, parrilla a carvão vivo, pizzas de fermentação 48h e mixologia sensorial exclusiva.
+            </p>
+            <div class="footer-social-links">
+              <a href="https://instagram.com" target="_blank" rel="noopener" class="footer-social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+              <a href="https://api.whatsapp.com/send?phone=5511987654321" target="_blank" rel="noopener" class="footer-social-btn" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+              <a href="https://tripadvisor.com" target="_blank" rel="noopener" class="footer-social-btn" aria-label="TripAdvisor"><i class="fa-brands fa-tripadvisor"></i></a>
+              <a href="https://youtube.com" target="_blank" rel="noopener" class="footer-social-btn" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+          </div>
+
+          <!-- Coluna 2: Navegação Rápida -->
+          <div class="footer-col">
+            <h4 class="footer-heading">Navegação</h4>
+            <ul class="footer-links-list">
+              <li><a href="#home" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Início</a></li>
+              <li><a href="#about" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Sobre Nossa Casa</a></li>
+              <li><a href="#menu" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Cardápio Especial</a></li>
+              <li><a href="#chefs" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Mestres Chefs</a></li>
+              <li><a href="#reservation" class="footer-link"><i class="fa-solid fa-chevron-right"></i> Reserva de Mesas</a></li>
+            </ul>
+          </div>
+
+          <!-- Coluna 3: Horários & Localização -->
+          <div class="footer-col">
+            <h4 class="footer-heading">Horários & Local</h4>
+            <div class="footer-info-block">
+              <div class="info-row">
+                <i class="fa-solid fa-clock text-primary"></i>
+                <div>
+                  <strong>Terça a Domingo:</strong>
+                  <p>18:30 às 23:45 (Jantar)</p>
+                </div>
+              </div>
+              <div class="info-row">
+                <i class="fa-solid fa-sun text-amber"></i>
+                <div>
+                  <strong>Sábados e Domingos:</strong>
+                  <p>12:00 às 15:30 (Almoço)</p>
+                </div>
+              </div>
+              <div class="info-row">
+                <i class="fa-solid fa-location-dot text-primary"></i>
+                <div>
+                  <strong>Endereço:</strong>
+                  <p>Alameda dos Sabores, 1420 — Jardins, SP</p>
+                  <div class="address-map-links">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Alameda+dos+Sabores+1420+Jardins+Sao+Paulo+SP" target="_blank" rel="noopener" class="map-app-btn google-maps" title="Abrir localização no Google Maps">
+                      <i class="fa-brands fa-google"></i> Google Maps
+                    </a>
+                    <a href="https://waze.com/ul?q=Alameda%20dos%20Sabores%2C%201420%20Jardins%20S%C3%A3o%20Paulo%20SP&navigate=yes" target="_blank" rel="noopener" class="map-app-btn waze" title="Navegar com Waze">
+                      <i class="fa-brands fa-waze"></i> Waze
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Coluna 4: Clube Gourmet VIP & Newsletter -->
+          <div class="footer-col newsletter-col">
+            <h4 class="footer-heading">Clube VIP RESHT</h4>
+            <p class="newsletter-desc">
+              Receba convites antecipados para menus degustação secretos e cortesias exclusivas de nossos chefs.
+            </p>
+            <form id="newsletterForm" class="newsletter-form">
+              <div class="newsletter-input-wrap">
+                <input type="email" id="newsletterEmail" class="newsletter-input" required placeholder="Seu melhor e-mail...">
+                <button type="submit" class="newsletter-submit-btn" aria-label="Inscrever-se">
+                  <i class="fa-solid fa-arrow-right"></i>
+                </button>
+              </div>
+              <span class="newsletter-disclaimer"><i class="fa-solid fa-shield-halved"></i> Sem spam. Apenas experiências gastronômicas reais.</span>
+            </form>
+          </div>
+
+        </div>
+
+        <!-- Footer Bottom Bar -->
+        <div class="footer-bottom-bar">
+          <p class="copyright-text">
+            © 2026 <strong>RESHT Gourmet Experience</strong>. Todos os direitos reservados.
+          </p>
+          <div class="footer-bottom-right">
+            <span class="developer-tag">Criado para excelência gastronômica</span>
+            <button class="back-to-top-btn" id="backToTopBtn" aria-label="Voltar ao Topo">
+              <i class="fa-solid fa-arrow-up"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </footer>
+
+    <!-- Modal de Personalização de Prato -->
+    <div class="dish-modal-backdrop" id="dishModalBackdrop"></div>
+    <div class="dish-modal glass-card" id="dishModal" role="dialog" aria-modal="true" aria-labelledby="dishModalTitle">
+      <button class="dish-modal-close" id="closeDishModalBtn" aria-label="Fechar"><i class="fa-solid fa-xmark"></i></button>
+      <div class="dish-modal-grid">
+        <div class="dish-modal-img-box">
+          <img src="assets/burger.jpg" alt="Prato" id="dishModalImg" class="dish-modal-img">
+        </div>
+        <div class="dish-modal-details">
+          <span class="dish-badge flame" id="dishModalBadge">🔥 Mais Pedido</span>
+          <h3 class="dish-modal-name" id="dishModalTitle">RESHT Royal Smash & Bacon</h3>
+          <p class="dish-modal-description" id="dishModalDesc">Dois smash burgers de Angus 180g com queijo cheddar inglês e bacon crocante.</p>
+          <div class="dish-modal-price" id="dishModalBasePrice">R$ 44,90</div>
+
+          <!-- Adicionais -->
+          <div class="dish-options-section">
+            <h4 class="options-title"><i class="fa-solid fa-circle-plus"></i> Adicionais Especiais</h4>
+            <div class="option-item">
+              <label class="checkbox-label">
+                <input type="checkbox" class="option-check" data-price="6.00" data-name="Cheddar Inglês Extra">
+                <span class="custom-box"></span>
+                <span>Queijo Cheddar Extra (+ R$ 6,00)</span>
+              </label>
+            </div>
+            <div class="option-item">
+              <label class="checkbox-label">
+                <input type="checkbox" class="option-check" data-price="5.00" data-name="Bacon Crocante Duplo">
+                <span class="custom-box"></span>
+                <span>Bacon Crocante Duplo (+ R$ 5,00)</span>
+              </label>
+            </div>
+            <div class="option-item">
+              <label class="checkbox-label">
+                <input type="checkbox" class="option-check" data-price="4.50" data-name="Molho Especial Trufado">
+                <span class="custom-box"></span>
+                <span>Molho Especial Trufado (+ R$ 4,50)</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Observação -->
+          <div class="form-group mb-4">
+            <label for="dishNotes"><i class="fa-regular fa-comment-dots"></i> Observações do Pedido</label>
+            <input type="text" id="dishNotes" class="form-input" placeholder="Ex: Sem cebola, ponto bem passado...">
+          </div>
+
+          <!-- Quantidade e Botão Confirmar -->
+          <div class="dish-modal-actions">
+            <div class="qty-selector">
+              <button class="qty-btn" id="qtyMinusBtn"><i class="fa-solid fa-minus"></i></button>
+              <span class="qty-number" id="dishQty">1</span>
+              <button class="qty-btn" id="qtyPlusBtn"><i class="fa-solid fa-plus"></i></button>
+            </div>
+            <button class="btn btn-primary flex-1" id="confirmAddDishBtn">
+              <i class="fa-solid fa-bag-shopping"></i>
+              <span id="confirmBtnText">Adicionar — R$ 44,90</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Painel Administrativo Modal / Drawer -->
+    <div class="admin-modal-backdrop" id="adminModalBackdrop"></div>
+    <div class="admin-modal" id="adminModal" role="dialog" aria-modal="true" aria-labelledby="adminModalTitle">
+      <div class="admin-modal-header">
+        <div class="admin-header-title">
+          <div class="admin-badge-icon"><i class="fa-solid fa-shield-halved"></i></div>
+          <div class="admin-title-wrap">
+            <h2 id="adminModalTitle" class="admin-title">Painel Administrativo</h2>
+            <p class="admin-subtitle">Gerencie seu perfil e os usuários da plataforma RESHT</p>
+          </div>
+        </div>
+        <div class="admin-header-actions">
+          <a href="admin.html" target="_blank" class="btn btn-primary btn-sm admin-kds-link" style="text-decoration:none;">
+            <i class="fa-solid fa-kitchen-set"></i> <span>Abrir Backoffice KDS</span>
+          </a>
+          <button class="admin-close-btn" id="closeAdminModalBtn" aria-label="Fechar Painel">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="admin-modal-body">
+        <!-- Sidebar Navigation Tabs -->
+        <nav class="admin-sidebar" aria-label="Navegação do Painel">
+          <button class="admin-tab-btn active" data-tab="profileTab" id="tabBtnProfile">
+            <i class="fa-solid fa-user-gear"></i>
+            <span>Meu Perfil</span>
+          </button>
+          <button class="admin-tab-btn" data-tab="usersTab" id="tabBtnUsers">
+            <i class="fa-solid fa-users-gear"></i>
+            <span>Usuários</span>
+            <span class="user-count-badge" id="userCountBadge">3</span>
+          </button>
+        </nav>
+
+        <!-- Main Tab Content Container -->
+        <div class="admin-tab-content">
+          
+          <!-- TAB 1: MEU PERFIL -->
+          <div class="tab-pane active" id="profileTab">
+            <form id="profileForm" class="admin-form">
+              <div class="profile-header-banner">
+                <div class="avatar-upload-box">
+                  <div class="avatar-preview" id="avatarPreview">
+                    <i class="fa-solid fa-user-astronaut"></i>
+                  </div>
+                  <div class="avatar-info">
+                    <h3 class="avatar-name" id="displayProfileName">Admin RESHT</h3>
+                    <span class="avatar-role-badge">Super Administrador</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="profileName"><i class="fa-regular fa-user"></i> Nome Completo</label>
+                  <input type="text" id="profileName" class="form-input" required placeholder="Seu nome completo" value="Nilton Admin">
+                </div>
+
+                <div class="form-group">
+                  <label for="profileEmail"><i class="fa-regular fa-envelope"></i> E-mail</label>
+                  <input type="email" id="profileEmail" class="form-input" required placeholder="seuemail@resht.com" value="admin@resht.com">
+                </div>
+
+                <div class="form-group">
+                  <label for="profilePhone"><i class="fa-solid fa-phone"></i> Telefone / WhatsApp</label>
+                  <input type="tel" id="profilePhone" class="form-input" placeholder="(11) 99999-9999" value="(11) 98765-4321">
+                </div>
+
+                <div class="form-group">
+                  <label for="profileRole"><i class="fa-solid fa-id-badge"></i> Cargo / Função</label>
+                  <input type="text" id="profileRole" class="form-input" placeholder="Ex: Gerente Geral" value="Administrador Geral">
+                </div>
+              </div>
+
+              <div class="form-divider">
+                <span><i class="fa-solid fa-lock"></i> Segurança & Senha</span>
+              </div>
+
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="profilePassword"><i class="fa-solid fa-key"></i> Nova Senha (Opcional)</label>
+                  <input type="password" id="profilePassword" class="form-input" placeholder="Digite uma nova senha">
+                </div>
+                <div class="form-group">
+                  <label for="profileConfirmPassword"><i class="fa-solid fa-check-double"></i> Confirmar Nova Senha</label>
+                  <input type="password" id="profileConfirmPassword" class="form-input" placeholder="Confirme a nova senha">
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary" id="saveProfileBtn">
+                  <i class="fa-solid fa-floppy-disk"></i>
+                  <span>Salvar Alterações</span>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- TAB 2: GESTÃO DE USUÁRIOS -->
+          <div class="tab-pane" id="usersTab">
+            <div class="users-header-bar">
+              <div>
+                <h3 class="section-heading">Lista de Usuários</h3>
+                <p class="section-desc">Cadastre novos acessos e defina privilégios de Administrador ou Usuário Comum.</p>
+              </div>
+              <button class="btn btn-primary btn-sm" id="openUserFormBtn">
+                <i class="fa-solid fa-user-plus"></i>
+                <span>Novo Usuário</span>
+              </button>
+            </div>
+
+            <!-- Inline User Add/Edit Form Box -->
+            <div class="user-form-card glass-card hidden" id="userFormCard">
+              <div class="card-header-flex">
+                <h4 class="card-title" id="userFormTitle"><i class="fa-solid fa-user-plus"></i> Cadastrar Novo Usuário</h4>
+                <button type="button" class="btn-icon-subtle" id="closeUserFormBtn"><i class="fa-solid fa-xmark"></i></button>
+              </div>
+              <form id="userForm" class="user-inline-form">
+                <input type="hidden" id="userIdInput" value="">
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label for="userNameInput"><i class="fa-regular fa-user"></i> Nome</label>
+                    <input type="text" id="userNameInput" class="form-input" required placeholder="Nome do usuário">
+                  </div>
+                  <div class="form-group">
+                    <label for="userEmailInput"><i class="fa-regular fa-envelope"></i> E-mail</label>
+                    <input type="email" id="userEmailInput" class="form-input" required placeholder="email@dominio.com">
+                  </div>
+                  <div class="form-group">
+                    <label for="userRoleSelect"><i class="fa-solid fa-shield"></i> Nível de Acesso</label>
+                    <select id="userRoleSelect" class="form-select" required>
+                      <option value="user">Usuário Comum</option>
+                      <option value="admin">Administrador</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="userPasswordInput"><i class="fa-solid fa-key"></i> Senha</label>
+                    <input type="password" id="userPasswordInput" class="form-input" placeholder="Senha de acesso">
+                  </div>
+                </div>
+                <div class="form-actions-inline">
+                  <button type="button" class="btn btn-secondary btn-sm" id="cancelUserBtn">Cancelar</button>
+                  <button type="submit" class="btn btn-primary btn-sm" id="saveUserBtn">
+                    <i class="fa-solid fa-check"></i> Salvar Usuário
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Users Table Container -->
+            <div class="users-table-container glass-card">
+              <table class="users-table" id="usersTable">
+                <thead>
+                  <tr>
+                    <th>Usuário</th>
+                    <th>E-mail</th>
+                    <th>Nível de Acesso</th>
+                    <th>Data</th>
+                    <th class="text-right">Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="usersTableBody">
+                  <!-- Inserido dinamicamente via JS -->
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Carrinho de Compras Drawer -->
+    <div class="cart-drawer-backdrop" id="cartDrawerBackdrop"></div>
+    <div class="cart-drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-labelledby="cartDrawerTitle">
+      <div class="cart-drawer-header">
+        <div class="cart-header-title">
+          <div class="cart-badge-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+          <div>
+            <h3 id="cartDrawerTitle" class="cart-title">Carrinho Gourmet</h3>
+            <span class="cart-item-count" id="cartDrawerCount">0 itens adicionados</span>
+          </div>
+        </div>
+        <button class="cart-close-btn" id="closeCartDrawerBtn" aria-label="Fechar Carrinho">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Barra de Frete Grátis -->
+      <div class="free-shipping-bar" id="freeShippingBar">
+        <div class="free-shipping-text" id="freeShippingText">
+          <i class="fa-solid fa-truck-fast"></i>
+          <span>Adicione mais <strong>R$ 35,10</strong> para <strong>Frete Grátis!</strong></span>
+        </div>
+        <div class="shipping-progress-track">
+          <div class="shipping-progress-fill" id="shippingProgressFill" style="width: 55%;"></div>
+        </div>
+      </div>
+
+      <!-- Lista de Itens do Carrinho -->
+      <div class="cart-drawer-body" id="cartDrawerBody">
+        <div class="cart-items-list" id="cartItemsList">
+          <!-- Inserido dinamicamente via JS -->
+        </div>
+
+        <!-- Estado Vazio -->
+        <div class="cart-empty-state hidden" id="cartEmptyState">
+          <div class="empty-icon-wrap">
+            <i class="fa-solid fa-burger"></i>
+          </div>
+          <h4 class="empty-title">Seu carrinho está vazio</h4>
+          <p class="empty-desc">Explore nosso cardápio de alta gastronomia e escolha suas especialidades favoritas!</p>
+          <button class="btn btn-primary btn-sm" id="emptyCartExploreBtn">
+            <i class="fa-solid fa-utensils"></i>
+            <span>Ver Cardápio</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Rodapé do Carrinho com Valores e Checkout -->
+      <div class="cart-drawer-footer" id="cartDrawerFooter">
+        <div class="cart-summary-rows">
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span id="cartSubtotalVal">R$ 0,00</span>
+          </div>
+          <div class="summary-row">
+            <span>Taxa de Entrega</span>
+            <span id="cartDeliveryVal">R$ 7,90</span>
+          </div>
+          <div class="summary-row total-row">
+            <span>Total a Pagar</span>
+            <span class="total-price" id="cartTotalVal">R$ 7,90</span>
+          </div>
+        </div>
+
+        <button class="btn btn-primary w-full btn-checkout" id="openCheckoutBtn">
+          <span>Finalizar Pedido</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Modal de Checkout Rápido & Pagamento -->
+    <div class="checkout-modal-backdrop" id="checkoutModalBackdrop"></div>
+    <div class="checkout-modal glass-card" id="checkoutModal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
+      <div class="checkout-header">
+        <div class="checkout-header-title">
+          <div class="admin-badge-icon"><i class="fa-solid fa-receipt"></i></div>
+          <div>
+            <h3 id="checkoutTitle" class="checkout-main-title">Finalizar Pedido</h3>
+            <p class="checkout-sub">Entrega expressa e pagamento seguro</p>
+          </div>
+        </div>
+        <button class="checkout-close-btn" id="closeCheckoutBtn" aria-label="Fechar"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <form id="checkoutForm" class="checkout-form">
+        <div class="checkout-body-grid">
+          
+          <!-- Lado Esquerdo: Dados de Entrega & Pagamento -->
+          <div class="checkout-left-col">
+            
+            <!-- Seção 1: Dados do Cliente -->
+            <div class="checkout-section-box">
+              <h4 class="checkout-box-title"><i class="fa-solid fa-location-dot"></i> 1. Endereço de Entrega</h4>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="custName"><i class="fa-regular fa-user"></i> Seu Nome Completo</label>
+                  <input type="text" id="custName" class="form-input" required placeholder="Como podemos te chamar?">
+                </div>
+                <div class="form-group">
+                  <label for="custPhone"><i class="fa-brands fa-whatsapp"></i> WhatsApp / Telefone</label>
+                  <input type="tel" id="custPhone" class="form-input" required placeholder="(11) 99999-9999">
+                </div>
+              </div>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="custStreet"><i class="fa-solid fa-road"></i> Rua / Avenida e Número</label>
+                  <input type="text" id="custStreet" class="form-input" required placeholder="Ex: Av. Paulista, 1500">
+                </div>
+                <div class="form-group">
+                  <label for="custNeighborhood"><i class="fa-solid fa-city"></i> Bairro</label>
+                  <input type="text" id="custNeighborhood" class="form-input" required placeholder="Ex: Bela Vista">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="custComplement"><i class="fa-solid fa-building"></i> Complemento / Ponto de Referência (Opcional)</label>
+                <input type="text" id="custComplement" class="form-input" placeholder="Apto 42, Bloco B, Próximo ao metrô...">
+              </div>
+            </div>
+
+            <!-- Seção 2: Forma de Pagamento -->
+            <div class="checkout-section-box">
+              <h4 class="checkout-box-title"><i class="fa-solid fa-credit-card"></i> 2. Forma de Pagamento</h4>
+              <div class="payment-methods-grid">
+                <label class="payment-card">
+                  <input type="radio" name="payMethod" value="pix" checked class="pay-radio">
+                  <div class="payment-card-content">
+                    <i class="fa-brands fa-pix text-emerald"></i>
+                    <span class="pay-name">Pix Instantâneo</span>
+                    <span class="pay-tag">Aprovação Imediata</span>
+                  </div>
+                </label>
+
+                <label class="payment-card">
+                  <input type="radio" name="payMethod" value="card" class="pay-radio">
+                  <div class="payment-card-content">
+                    <i class="fa-solid fa-credit-card text-primary"></i>
+                    <span class="pay-name">Cartão na Entrega</span>
+                    <span class="pay-tag">Crédito / Débito</span>
+                  </div>
+                </label>
+
+                <label class="payment-card">
+                  <input type="radio" name="payMethod" value="cash" class="pay-radio">
+                  <div class="payment-card-content">
+                    <i class="fa-solid fa-money-bill-wave text-amber"></i>
+                    <span class="pay-name">Dinheiro</span>
+                    <span class="pay-tag">Com ou sem troco</span>
+                  </div>
+                </label>
+              </div>
+
+              <!-- Detalhes do Pix -->
+              <div class="pix-details-box" id="pixDetailsBox">
+                <div class="pix-info-flex">
+                  <div class="pix-qr-mock">
+                    <i class="fa-solid fa-qrcode"></i>
+                  </div>
+                  <div class="pix-text-info">
+                    <strong>Chave Pix CNPJ:</strong>
+                    <code id="pixKey">48.912.834/0001-90</code>
+                    <button type="button" class="btn-copy-pix" id="copyPixBtn">
+                      <i class="fa-regular fa-copy"></i> Copiar Chave Pix
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Campo de Troco para Dinheiro -->
+              <div class="cash-change-box hidden" id="cashChangeBox">
+                <div class="form-group">
+                  <label for="changeInput"><i class="fa-solid fa-coins"></i> Precisa de troco para quanto?</label>
+                  <input type="text" id="changeInput" class="form-input" placeholder="Ex: Troco para R$ 100,00">
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Lado Direito: Resumo e Confirmação -->
+          <div class="checkout-right-col">
+            <div class="order-summary-card glass-card">
+              <h4 class="summary-card-title"><i class="fa-solid fa-utensils"></i> Resumo do Pedido</h4>
+              <div class="checkout-items-preview" id="checkoutItemsPreview">
+                <!-- Itens resumidos via JS -->
+              </div>
+              
+              <div class="checkout-pricing-summary">
+                <div class="summary-row">
+                  <span>Subtotal dos Pratos</span>
+                  <span id="checkoutSubtotal">R$ 0,00</span>
+                </div>
+                <div class="summary-row">
+                  <span>Taxa de Entrega Express</span>
+                  <span id="checkoutDelivery">R$ 7,90</span>
+                </div>
+                <div class="summary-row total-row-lg">
+                  <span>Total Final</span>
+                  <span class="total-price-lg" id="checkoutTotal">R$ 7,90</span>
+                </div>
+              </div>
+
+              <div class="delivery-time-estimate">
+                <i class="fa-solid fa-bolt-lightning text-primary"></i>
+                <span>Tempo estimado de entrega: <strong>25 a 35 minutos</strong></span>
+              </div>
+
+              <button type="submit" class="btn btn-primary w-full btn-submit-order" id="confirmOrderWhatsAppBtn">
+                <i class="fa-brands fa-whatsapp"></i>
+                <span>Enviar Pedido para WhatsApp</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </form>
+    </div>
+
+    <!-- Modal de Sucesso do Pedido -->
+    <div class="order-success-modal-backdrop" id="orderSuccessBackdrop"></div>
+    <div class="order-success-modal glass-card" id="orderSuccessModal" role="dialog" aria-modal="true">
+      <div class="success-icon-ring">
+        <i class="fa-solid fa-check"></i>
+      </div>
+      <h3 class="success-title">Pedido Confirmado com Sucesso!</h3>
+      <p class="success-desc">Seu pedido foi registrado e encaminhado para a cozinha do <strong>RESHT</strong>. O Chef já está preparando seus pratos artesanais!</p>
+      
+      <div class="order-ticket-box">
+        <div class="ticket-row">
+          <span>Código do Pedido:</span>
+          <strong id="successOrderId">#RST-9842</strong>
+        </div>
+        <div class="ticket-row">
+          <span>Previsão de Entrega:</span>
+          <strong>25 - 35 minutos</strong>
+        </div>
+        <div class="ticket-row">
+          <span>Status Atual:</span>
+          <span class="status-badge"><i class="fa-solid fa-fire"></i> Na Cozinha</span>
+        </div>
+      </div>
+
+      <button class="btn btn-primary w-full" id="closeSuccessModalBtn">
+        <i class="fa-solid fa-house"></i>
+        <span>Voltar ao Início</span>
+      </button>
+    </div>
+    <div class="toast" id="toast">
+      <i class="fa-solid fa-circle-check toast-icon"></i>
+      <span class="toast-message" id="toastMessage">Item adicionado ao carrinho!</span>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
