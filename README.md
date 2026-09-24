@@ -83,6 +83,7 @@ docker compose up -d --build
 
 # Acesse em:
 # → http://localhost        (porta 80)
+# → http://localhost:3000   (porta 3000)
 # → http://localhost:8080   (porta alternativa)
 ```
 

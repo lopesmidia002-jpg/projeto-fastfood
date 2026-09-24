@@ -12,6 +12,7 @@ services:
     image: resht-gourmet:latest
     ports:
       - "80:80"       # Acesso principal: http://localhost
+      - "3000:80"     # Porta local alternativa: http://localhost:3000
       - "8080:80"     # Porta alternativa: http://localhost:8080
     restart: unless-stopped
     volumes:
